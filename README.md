@@ -1,16 +1,70 @@
-# cofredesenha
+# Password Manager
 
-A new Flutter project.
+Password Manager foi desenvolvido com Flutter que é uma tecnologia Multiplataforma, podendo
+assim ser rodado tanto no Android como no IOS, fazendo uso da linguagem de programação Dart.
 
-## Getting Started
+Versões
+Flutter - 3.0.0
+Dart - 2.17.0
 
-This project is a starting point for a Flutter application.
+## Inicializando
 
-A few resources to get you started if this is your first Flutter project:
+**Passo 1:**
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Baixe ou clone esse repositório usando o link abaixo:  
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+https://github.com/gabrielmenoi0/cofre-de-senha/tree/dev
+```
+
+**Passo 2:**
+
+Na raiz do projeto execute o seguinte comando para pegar todas as dependências:
+
+```
+flutter pub get
+```
+
+**Passo 3:**
+
+Para rodar o projeto execute o comando:
+
+```
+flutter run lib/main.dart
+```
+
+### Estrutura de arquivos
+
+Essa é a estrutura de arquivos do projeto, maioria é gerada pelo próprio flutter.
+
+```
+flutter-app/
+|- android/
+|- assets/
+|- build/
+|- ios/
+|- lib/
+|- test/
+```
+
+Essa é a estrutura de pastas usada pelo projeto.
+
+```
+lib/
+|- data/
+|- models/
+|- src/
+|- utils/
+|- main.dart
+```
+
+Agora, o que cada um dessas pastas e arquivos fazem:
+
+```
+1- data - Contém os arquivos de com a arquitetura do banco de dados(tabelas e funções de (INSERT, DELETE e ALTER).
+2- models - Contém classes de models de Json utilizados no aplicativo.
+3- src - Contém os arquivos de interface do sistema.
+4- utils — Contém utilitários e métodos comuns para serem utilizados.
+5- main.dart - Esse é o inicializador do projeto.
+```
+
