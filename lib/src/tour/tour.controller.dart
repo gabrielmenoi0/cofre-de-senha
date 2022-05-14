@@ -1,4 +1,4 @@
-import 'package:cofredesenha/src/password/viewPassword.dart';
+import 'package:cofredesenha/src/home/viewPassword.dart';
 import 'package:cofredesenha/src/register/register.steps.view.dart';
 import 'package:flutter/material.dart';
 
@@ -64,8 +64,9 @@ class TourController {
             duration: Duration(milliseconds: 300), curve: Curves.ease);
       }
     }else{
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => RegisterStepsView(document: '',)));
+      Navigator.pop(context);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => RegisterStepsView()));
     }
 
   }

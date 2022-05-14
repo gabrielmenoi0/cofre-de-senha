@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:cofredesenha/models/BankModel.dart';
 import 'package:cofredesenha/models/SaveAccaunt.dart';
 import 'package:cofredesenha/models/cliente.dart';
-import 'package:cofredesenha/models/registerModel.dart';
+import 'package:cofredesenha/models/socialModel.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -12,51 +12,34 @@ import 'package:sqflite/sqflite.dart';
 //USER
 const String tableUser = 'User';
 const String columnId = 'id';
-const String columnCode = 'codigo';
-const String columnDoc = 'cpf';
-const String columnName = 'NOME';
-const String columnCashback = 'utiliza_saldo_cashback';
-const String columnCompanyName = 'empresa_credito';
-const String columnCompanyBenefits = 'produto_guid';
-const String columnAdress = 'endereco';
-const String columnNumber = 'numero_endereco';
-const String columnComplement = 'complemento';
-const String columnBairro = 'bairro';
-const String columnCep = 'cep';
-const String columnCountry = 'uf';
-const String columnCity = 'cidade';
-const String columnSenha = 'SENHA';
-const String columnEmail = 'EMAIL';
+const String columnName = 'nome';
+const String columnSenha = 'senha';
+const String columnEmail = 'email';
 
 
 
 const String tableAccount = 'Account';
 // const String columnIdAccount = 'idAccount';
 const String columnLocal = 'local';
+const String columnAccauntId = 'id';
 const String columnPassword = 'password';
 const String columnObservation = 'observation';
 
+const String tableBank = 'Bank';
+const String columnBanktId = 'id';
+const String columnbank = 'bank';
+const String columnagency = 'agencyAccount';
+const String columnaccaunt = 'account';
+const String columnpasswordBank = 'bankpassword';
+const String columntypeBank = 'type';
 
-const String tableBenefitsPayment = 'Benefits';
-const String columnCodeBenefit = 'codigo';
-const String columnNameBenefit = 'nome';
-const String columnValueBenefit = 'saldo';
-
-const String tableProduct = "tableProduct";
-const String columncodigo = "codigo";
-const String columnnome = "nome";
-const String columnsaldo = "saldo";
-const String columncodBeneficiadorAtual = "cod_beneficiador_atual";
-const String columnpermiteSaque = "permite_saque";
-const String columnbeneficiador = "beneficiador";
-const String columndependente = "dependente";
-const String columncodTitular = "cod_titular";
-const String columnparcelamento = "parcelamento";
-const String columnramos = "ramos";
-
-
-// const String tableListBenefitsPayment = 'ListBenefits';
-
+const String tableSocial = 'Social';
+const String columnSocialtId = 'id';
+const String columnname = 'name';
+const String columnpassword = 'password';
+const String columntype = 'type';
+const String columnpasswordSocial = 'passwordSocial';
+const String columnObservationSocial = 'ob';
 
 
 class DatabaseProvider {
@@ -87,57 +70,157 @@ class DatabaseProvider {
     await db.execute('''
     create table $tableUser (
     $columnId integer primary key autoincrement,
-    $columnCode text,
-    $columnDoc text,
     $columnName text,
     $columnSenha text,
-    $columnCashback text,
-    $columnCompanyName text,
-    $columnCompanyBenefits text,
-    $columnAdress text,
-    $columnNumber text,
-    $columnComplement text,
-    $columnBairro text,
-    $columnCep text,
-    $columnCountry text,
-    $columnCity text,
     $columnEmail text 
     
     )''');
 
     await db.execute('''
     create table $tableAccount (
-    $columnId integer primary key autoincrement,
+    $columnAccauntId integer primary key autoincrement,
     $columnLocal text not null,
     $columnPassword text not null,
     $columnObservation text not null
     )''');
 
     await db.execute('''
-    create table $tableBenefitsPayment (
-    $columnId integer primary key autoincrement,
-    $columnValueBenefit text
+    create table $tableBank (
+    $columnBanktId integer primary key autoincrement,
+    $columnbank text,
+    $columnagency text,
+    $columnaccaunt text,
+    $columnpasswordBank text,
+    $columntypeBank text
     )''');
 
     await db.execute('''
-    create table $tableProduct (
-    $columnId integer primary key autoincrement,
-    $columncodigo text,
-    $columnnome text,
-    $columnsaldo text,
-    $columncodBeneficiadorAtual text,
-    $columnpermiteSaque text,
-    $columnbeneficiador text,
-    $columndependente integer,
-    $columncodTitular text,
-    $columnparcelamento text,
-    $columnramos text
+    create table $tableSocial (
+    $columnSocialtId integer primary key autoincrement,
+    $columnname text,
+    $columnpasswordSocial text,
+    $columntype text,
+    $columnObservationSocial text 
     )''');
 
   }
+  Future<int> editCliente(Cliente saveAccountModel) async {
+    final db = await database;
+    // var cpf = await getCustomer();
+    var res = await db.update(
+      tableUser,
+      saveAccountModel.toJson(),
+      where: "id = ?",
+      whereArgs: [saveAccountModel.id],
+    );
+    // var res = await db.(tableAccount, {
+    //   // columnAccauntId: saveAccountModel.id,
+    //   columnLocal: saveAccountModel.local ?? "",
+    //   columnPassword: saveAccountModel.password ?? "",
+    //   columnObservation: saveAccountModel.observation ?? "",
+    //
+    // });
+
+    return res;
+  }
+  Future<int> saveBank(BankModel saveAccountModel) async {
+    final db = await database;
+    // var cpf = await getCustomer();
+    var res = await db.insert(tableBank, {
+      columnbank: saveAccountModel.bank ?? "",
+      columnagency: saveAccountModel.agency ?? "",
+      columnaccaunt: saveAccountModel.account ?? "",
+      columnpasswordBank: saveAccountModel.password ?? "",
+      columntypeBank: saveAccountModel.type ?? "",
+
+    });
+
+    return res;
+  }
+  Future<int> editBank(BankModel saveAccountModel) async {
+    final db = await database;
+    // var cpf = await getCustomer();
+    var res = await db.update(
+      tableBank,
+      saveAccountModel.toJson(),
+      where: "id = ?",
+      whereArgs: [saveAccountModel.id],
+    );
+    // var res = await db.(tableAccount, {
+    //   // columnAccauntId: saveAccountModel.id,
+    //   columnLocal: saveAccountModel.local ?? "",
+    //   columnPassword: saveAccountModel.password ?? "",
+    //   columnObservation: saveAccountModel.observation ?? "",
+    //
+    // });
+
+    return res;
+  }
+  Future<List<BankModel>> getBank() async {
+    final db = await database;
+    var res = await db.query(tableBank);
+    List<BankModel> list = res.isNotEmpty
+        ? res.map((c) => BankModel.fromJson(c)).toList()
+        : [];
+    return list;
+  }
+
+  Future<int> deleteBank(BankModel saveAccountModel) async {
+    final db = await database;
+    var res = await db.delete(tableBank,where: "id = ?", whereArgs: [saveAccountModel.id]);
+    return res;
+  }
+
+  Future<List<SocialModel>> getSocial() async {
+    final db = await database;
+    var res = await db.query(tableSocial);
+    List<SocialModel> list = res.isNotEmpty
+        ? res.map((c) => SocialModel.fromJson(c)).toList()
+        : [];
+    return list;
+  }
+  Future<int> saveSocial(SocialModel saveAccountModel) async {
+    final db = await database;
+    // var cpf = await getCustomer();
+    var res = await db.insert(tableSocial, {
+      columnname: saveAccountModel.name ?? "",
+      columnpasswordSocial: saveAccountModel.password ?? "",
+      columntype: saveAccountModel.type?? "",
+      // columnObservationSocial: saveAccountModel.ob?? "",
+
+    });
+
+    return res;
+  }
+  Future<int> editSocial(SocialModel saveAccountModel) async {
+    final db = await database;
+    // var cpf = await getCustomer();
+    var res = await db.update(
+      tableSocial,
+      saveAccountModel.toJson(),
+      where: "id = ?",
+      whereArgs: [saveAccountModel.id],
+    );
+    // var res = await db.(tableAccount, {
+    //   // columnAccauntId: saveAccountModel.id,
+    //   columnLocal: saveAccountModel.local ?? "",
+    //   columnPassword: saveAccountModel.password ?? "",
+    //   columnObservation: saveAccountModel.observation ?? "",
+    //
+    // });
+
+    return res;
+  }
+
+  Future<int> deleteSocial(SocialModel saveAccountModel) async {
+    final db = await database;
+    var res = await db.delete(tableSocial,where: "id = ?", whereArgs: [saveAccountModel.id]);
+    return res;
+  }
 
 
-  Future<int> saveCustomer(RegisterModel responseModel,) async {
+
+  Future<int> saveCustomer(Cliente responseModel,) async {
     final db = await database;
     var res = await db.insert(tableUser, {
       columnName: responseModel.nome ?? "",
@@ -163,63 +246,7 @@ class DatabaseProvider {
         : [];
     return list.first;
   }
-  //
-  // Future<int> updateCustomer(Cliente customerModel) async {
-  //   final db = await database;
-  //
-  //   var res = await db.update(tableUser, {
-  //     columnDoc: customerModel.cpf ?? "",
-  //     columnCode: customerModel.codigo ?? "",
-  //     columnName: customerModel.nome ?? "",
-  //     columnCashback: customerModel.utilizaSaldoCashback ?? "",
-  //     columnAdress: customerModel.endereco ?? "",
-  //     columnNumber: customerModel.numeroEndereco ?? "",
-  //     columnComplement: customerModel.complemento ?? "",
-  //     columnBairro: customerModel.bairro ?? "",
-  //     columnCep: customerModel.cep ?? "",
-  //     columnCountry: customerModel.uf ?? "",
-  //     columnCity: customerModel.cidade ?? "",
-  //
-  //   }, where: '$columnId = ?',
-  //       whereArgs: [customerModel.id]
-  //   );
-  //
-  //   return res;
-  // }
-  // Future<List<Benefit>> getBenefit() async {
-  //   final db = await database;
-  //   var res = await db.query(tableBenefitsPayment);
-  //
-  //   List<Benefit> list = res.isNotEmpty
-  //       ? (json.decode(res.toString()) as List).map((c) => Benefit.fromJson(c)).toList()
-  //       : [];
-  //   return list;
-  // }
-  // Future<void> saveBenefit(List<Benefit> saveBenefitModel) async {
-  //   final db = await database;
-  //
-  //   await db.insert(tableBenefitsPayment, {
-  //     columnValueBenefit: json.encode(saveBenefitModel),
-  //   });
-  //
-  // }
-  // Future<int> saveProduct(Produtos product) async {
-  //   final db = await database;
-  //
-  //   var res = await db.insert(tableProduct, product.toJson() );
-  //   return res;
-  //
-  // }
-  //
-  // Future<List<Produtos>> getAllProduct() async {
-  //   final db = await database;
-  //   var res = await db.rawQuery('SELECT * FROM $tableProduct');
-  //   List<Produtos> lista =[];
-  //   for(Map p in res){
-  //     lista.add(Produtos.fromJson(p as Map<String,dynamic>));
-  //   }
-  //   return lista;
-  // }
+
 
   Future<int> saveAccount(SaveAccountModel saveAccountModel) async {
     final db = await database;
@@ -230,6 +257,25 @@ class DatabaseProvider {
       columnObservation: saveAccountModel.observation ?? "",
 
     });
+
+    return res;
+  }
+  Future<int> editAccount(SaveAccountModel saveAccountModel) async {
+    final db = await database;
+    // var cpf = await getCustomer();
+    var res = await db.update(
+      tableAccount,
+      saveAccountModel.toJson(),
+      where: "id = ?",
+      whereArgs: [saveAccountModel.id],
+    );
+    // var res = await db.(tableAccount, {
+    //   // columnAccauntId: saveAccountModel.id,
+    //   columnLocal: saveAccountModel.local ?? "",
+    //   columnPassword: saveAccountModel.password ?? "",
+    //   columnObservation: saveAccountModel.observation ?? "",
+    //
+    // });
 
     return res;
   }

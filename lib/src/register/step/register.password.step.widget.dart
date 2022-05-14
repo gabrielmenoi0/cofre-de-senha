@@ -85,7 +85,7 @@ class _RegisterPasswordStepWidget extends State<RegisterPasswordStepWidget> {
             ),
             DefaultTextField(
               inputFormatters: [mask],
-
+              prefixIcon: Icon(Icons.key, color: DefaultColors.secondaryColor,),
               keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
               textEditingController: _password,
               textInputAction: TextInputAction.next,
@@ -102,7 +102,7 @@ class _RegisterPasswordStepWidget extends State<RegisterPasswordStepWidget> {
             ),
             DefaultTextField(
               inputFormatters: [mask],
-
+              prefixIcon: Icon(Icons.key, color: DefaultColors.secondaryColor,),
               keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
               textEditingController: _confirm,
               textInputAction: TextInputAction.next,

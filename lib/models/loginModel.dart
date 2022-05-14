@@ -1,15 +1,15 @@
-class RegisterModel {
+class LoginModel {
   String? nome;
   String? senha;
   String? email;
 
 
-  RegisterModel(
+  LoginModel(
       {this.nome,
         this.senha,
         this.email,});
 
-  RegisterModel.fromJson(Map<String, dynamic> json) {
+  LoginModel.fromJson(Map<String, dynamic> json) {
     nome = json['NOME'];
     senha = json['SENHA'];
     email = json['EMAIL'];

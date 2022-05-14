@@ -1,29 +1,26 @@
-class UserModel {
+class BankModel {
   int? id;
   String? bank;
-  String? name;
-  String? cpf;
-  String? cpfUser;
   String? agency;
   String? account;
+  String? password;
+  String? type;
 
-  UserModel(
+  BankModel(
       {this.bank,
-        this.name,
-        this.cpf,
-        this.cpfUser,
         this.agency,
         this.account,
+        this.password,
+        this.type,
       });
 
-  UserModel.fromJson(Map<String, dynamic> json) {
+  BankModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     bank = json['bank'];
-    name = json['nameAccount'];
-    cpf = json['cpfAccount'];
     agency = json['agencyAccount'];
     account = json['account'];
-    cpfUser = json['cpfUser'];
+    password = json['bankpassword'];
+    type = json['type'];
 
   }
 
@@ -31,11 +28,10 @@ class UserModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['bank'] = this.bank;
-    data['nameAccount'] = this.name;
-    data['cpfAccount'] = this.cpf;
-    data['cpfUser'] = this.cpfUser;
     data['agencyAccount'] = this.agency;
     data['account'] = this.account;
+    data['bankpassword'] = this.password;
+    data['type'] = this.type;
     return data;
   }
 }

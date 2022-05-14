@@ -57,6 +57,7 @@ class _RegisterNameStepWidget extends State<RegisterNameStepWidget> {
               height: 10,
             ),
             DefaultTextField(
+              prefixIcon: Icon(Icons.person, color: DefaultColors.secondaryColor,),
               textEditingController: _textEditingController,
               textInputAction: TextInputAction.next,
               validator: (value) => Validator.validateSimple(value ?? ""),

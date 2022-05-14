@@ -1,10 +1,9 @@
-import 'dart:convert';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cofredesenha/data/database.dart';
-import 'package:cofredesenha/models/registerModel.dart';
-import 'package:cofredesenha/src/message.view.dart';
-import 'package:cofredesenha/src/password/viewPassword.dart';
+import 'package:cofredesenha/models/cliente.dart';
+import 'package:cofredesenha/src/home.dart';
+import 'package:cofredesenha/src/login.dart';
+
 import 'package:cofredesenha/src/register/step/register.email.step.widget.dart';
 import 'package:cofredesenha/src/register/step/register.name.step.widget.dart';
 import 'package:cofredesenha/src/register/step/register.password.step.widget.dart';
@@ -16,9 +15,8 @@ import 'package:flutter/material.dart';
 
 
 class RegisterStepsView extends StatefulWidget {
-  final String document;
 
-  const RegisterStepsView({Key? key, required this.document}) : super(key: key);
+  const RegisterStepsView({Key? key,}) : super(key: key);
 
   @override
   _RegisterStepsView createState() => _RegisterStepsView();
@@ -36,10 +34,7 @@ class _RegisterStepsView extends State<RegisterStepsView> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final RegisterModel _registerModel = RegisterModel();
-
-  bool _isChecked = false;
-  bool _isVerified = false;
+  Cliente _registerModel = Cliente();
 
   @override
   void initState() {
@@ -80,8 +75,6 @@ class _RegisterStepsView extends State<RegisterStepsView> {
     switch(currentPage) {
       case 2:
         return "Cadastre uma senha";
-      case 5:
-        return "Termos gerais";
       default:
         return "Cadastro";
     }
@@ -173,7 +166,9 @@ class _RegisterStepsView extends State<RegisterStepsView> {
 
   _back() {
     if(currentPage == 0) {
-      Navigator.of(context).pop();
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => login()));
+
     } else {
       _controller.previousPage();
     }
@@ -195,10 +190,16 @@ class _RegisterStepsView extends State<RegisterStepsView> {
   _register() async {
 
       print("REGISTRO ${_registerModel.toJson()}");
-      await _dbHelper.saveCustomer(_registerModel);
-      Navigator.pop(context);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => ViewPassword()));
+      try{
+        await _dbHelper.saveCustomer(_registerModel);
+        // Navigator.pop(context);
+        // Navigator.pop(context);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Home()));
+      }catch(e){
+        DefaultScreenUtils.onMessage(context: context, message: "Erro ao Cadastrar!", isError: true);
+      }
+
       // await _registerController.register(_registerModel);
 
   }

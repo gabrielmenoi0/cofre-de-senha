@@ -1,4 +1,4 @@
-import 'package:cofredesenha/src/password/viewPassword.dart';
+import 'package:cofredesenha/src/home/viewPassword.dart';
 import 'package:cofredesenha/src/register/register.steps.view.dart';
 import 'package:cofredesenha/src/tour/page.tour.dart';
 import 'package:cofredesenha/src/tour/tour.controller.dart';
@@ -62,8 +62,10 @@ class _TourState extends State<Tour> {
     );
   }
   finish(){
+    Navigator.pop(context);
+    Navigator.pop(context);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => RegisterStepsView(document: '',)));
+        context, MaterialPageRoute(builder: (context) => RegisterStepsView()));
   }
 
   _body() {

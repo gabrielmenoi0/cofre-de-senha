@@ -1,24 +1,22 @@
-import 'dart:convert';
-import 'package:cofredesenha/data/cache/storage.dart';
-import 'package:cofredesenha/data/cache/strings.dart';
 import 'package:cofredesenha/data/database.dart';
 import 'package:cofredesenha/models/SaveAccaunt.dart';
 import 'package:cofredesenha/models/passwordModel.dart';
-import 'package:cofredesenha/src/password/addPassword.dart';
+import 'package:cofredesenha/models/socialModel.dart';
+import 'package:cofredesenha/src/home.dart';
 import 'package:cofredesenha/utils/button.dart';
 import 'package:cofredesenha/utils/screenUtils.dart';
 import 'package:cofredesenha/utils/styles.dart';
 import 'package:cofredesenha/utils/textStyle.dart';
 import 'package:flutter/material.dart';
 
-class AddPassword extends StatefulWidget {
-  const AddPassword({Key? key}) : super(key: key);
+class AddSocial extends StatefulWidget {
+  const AddSocial({Key? key}) : super(key: key);
 
   @override
-  _AddPassword createState() => _AddPassword();
+  _AddSocial createState() => _AddSocial();
 }
 
-class _AddPassword extends State<AddPassword> {
+class _AddSocial extends State<AddSocial> {
 
   @override
   void initState() {
@@ -33,8 +31,8 @@ class _AddPassword extends State<AddPassword> {
   String data = "";
   List<Passwords> info = [];
   final _formKey = GlobalKey<FormState>();
-  SaveAccountModel save = SaveAccountModel();
-  TextEditingController localController = TextEditingController();
+  SocialModel save = SocialModel();
+  TextEditingController namecontroller = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController observationController = TextEditingController();
 
@@ -42,15 +40,20 @@ class _AddPassword extends State<AddPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: _button(),
+
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-            size: 20,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+              size: 20,
+            ),
+            onPressed: () {
+              // Navigator.pop(context);
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Home()));
+            }
         ),
         title: Text("Adicione sua senha",
             style: DefaultStyle.textStyle(
@@ -80,9 +83,9 @@ class _AddPassword extends State<AddPassword> {
         ),
         TextFormField(
           onSaved: (value){
-            save.local = localController.text;
+            save.name = namecontroller.text;
           },
-          controller: localController,
+          controller: namecontroller,
           keyboardType: TextInputType.text,
           validator: (String? name) {
             if (name!.isEmpty) {
@@ -132,34 +135,34 @@ class _AddPassword extends State<AddPassword> {
                 BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
           ),
         ),
-        SizedBox(
-          height: 24,
-        ),
-        TextFormField(
-          onSaved: (value){
-            save.observation = observationController.text;
-          },
-          controller: observationController,
-          keyboardType: TextInputType.text,
-          // validator: (String? name) {
-          //   if (name!.isEmpty) {
-          //     return "Campo obrigatório";
-          //   }
-          // },
-          style: TextStyle(
-            color: Colors.black,
-          ),
-          decoration: InputDecoration(
-            labelText: "Observação",
-            labelStyle: DefaultStyle.textStyle(
-                size: 20,
-                color: DefaultColors.darkColor2,
-                fontWeight: FontWeight.w400),
-            enabledBorder: UnderlineInputBorder(
-                borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
-          ),
-        ),
+        // SizedBox(
+        //   height: 24,
+        // ),
+        // TextFormField(
+        //   onSaved: (value){
+        //     save.ob = observationController.text;
+        //   },
+        //   controller: observationController,
+        //   keyboardType: TextInputType.text,
+        //   // validator: (String? name) {
+        //   //   if (name!.isEmpty) {
+        //   //     return "Campo obrigatório";
+        //   //   }
+        //   // },
+        //   style: TextStyle(
+        //     color: Colors.black,
+        //   ),
+        //   decoration: InputDecoration(
+        //     labelText: "Observação",
+        //     labelStyle: DefaultStyle.textStyle(
+        //         size: 20,
+        //         color: DefaultColors.darkColor2,
+        //         fontWeight: FontWeight.w400),
+        //     enabledBorder: UnderlineInputBorder(
+        //         borderSide:
+        //         BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+        //   ),
+        // ),
         SizedBox(
           height: 24,
         ),
@@ -181,9 +184,11 @@ class _AddPassword extends State<AddPassword> {
     try{
       if (!_formKey.currentState!.validate()) return;
       _formKey.currentState!.save();
-      var auth = await _dbHelper.saveAccount(save);
+      save.type ="Default";
+      var auth = await _dbHelper.saveSocial(save);
       print(save.toJson());
-      Navigator.pop(context);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Home()));
     }catch(e){
       DefaultScreenUtils.onMessage(context: context, message: "Erro ao salvar!", isError: true);
     }

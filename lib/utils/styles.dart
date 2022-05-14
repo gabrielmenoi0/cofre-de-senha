@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 abstract class DefaultColors {
 
-  static const primaryColor = Color(0xffa6d63a);
+  static const primaryColor = Color.fromRGBO(57, 49, 153, 1);
   static const primaryColorLight = Color(0xff95c11f);
   static const primaryColorDark = Color(0xff89b12d);
 
-  static const secondaryColor = Color(0xffed6652);
+  static const secondaryColor = Color.fromRGBO(57, 49, 153, 1);
   static const secondaryColorLight = Color(0xffe64e28);
   static const secondaryColorDark = Color(0xffda4019);
 

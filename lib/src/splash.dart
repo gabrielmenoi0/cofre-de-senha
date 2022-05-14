@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cofredesenha/src/message.view.dart';
+import 'package:cofredesenha/utils/images.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
@@ -52,7 +53,7 @@ class _SplashState extends State<Splash> {
             padding:
             EdgeInsets.only(left: 20, right: 20, top: 44.92, bottom: 46.55),
             child: Image.asset(
-              "assets/imagens/tauste.png",
+              DefaultAssets.logo,
               width: 559.67,
               height: 109.14,
               alignment: Alignment.center,

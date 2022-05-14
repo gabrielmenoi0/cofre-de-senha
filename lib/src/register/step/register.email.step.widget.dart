@@ -58,6 +58,7 @@ class _RegisterEmailStepWidget extends State<RegisterEmailStepWidget> {
               height: 10,
             ),
             DefaultTextField(
+              prefixIcon: Icon(Icons.email, color: DefaultColors.secondaryColor,),
               textEditingController: _textEditingController,
               textInputAction: TextInputAction.next,
               validator: (value) => Validator.validateEmail(value ?? ""),

@@ -1,7 +1,9 @@
 import 'package:cofredesenha/data/database.dart';
-import 'package:cofredesenha/src/password/viewPassword.dart';
+import 'package:cofredesenha/src/login.dart';
+import 'package:cofredesenha/src/home/viewPassword.dart';
 import 'package:cofredesenha/src/tour/tour_view.dart';
 import 'package:cofredesenha/utils/button.dart';
+import 'package:cofredesenha/utils/images.dart';
 import 'package:cofredesenha/utils/styles.dart';
 import 'package:cofredesenha/utils/textStyle.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +35,7 @@ class _MessageView extends State<MessageView> {
         body: _content()
     );
   }
+  
 
   _content() {
     return Center(
@@ -44,30 +47,30 @@ class _MessageView extends State<MessageView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // SizedBox(
-                //   height: 200,
-                //   child: Image.asset(
-                //     DefaultAssets.logo,
-                //   ),
-                // ),
+                SizedBox(
+                  height: 150,
+                  child: Image.asset(
+                    DefaultAssets.mensagem,
+                  ),
+                ),
                 const SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
                 Text(
-                  "Bom te ver por aqui!\nNosso app veio para simplificar\nsua forma de pagamento!",
-                  textAlign: TextAlign.left,
+                  "Bom te ver por aqui!\nNosso app veio para assegurar suas senhas e poupar seu tempo",
+                  textAlign: TextAlign.center,
                   style: DefaultStyle.textStyle(
-                      size: 24,
+                      size: 18,
                       fontWeight: FontWeight.w700,
                       color: DefaultColors.textColor
                   ),
                 ),
                 const SizedBox(
-                  height: 10 * 2,
+                  height: 30,
                 ),
                 DefaultButton(
                   context: context,
-                  title:  data.isEmpty || data == "" ? "Começar" : "Entrar",
+                  title: "Começar",
                   callback: () => _open(),
                 )
               ],
@@ -78,9 +81,7 @@ class _MessageView extends State<MessageView> {
     );
   }
   _open() async {
-
-    data.isEmpty || data == "" ?
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const Tour())) : Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewPassword()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const login()));
   }
 
 }

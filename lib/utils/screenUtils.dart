@@ -21,7 +21,7 @@ class DefaultScreenUtils {
           )
       ),
       action: action,
-      backgroundColor: isError ? Colors.redAccent : Colors.blueAccent,
+      backgroundColor: isError ? Colors.redAccent : DefaultColors.secondaryColor,
     ));
   }
 

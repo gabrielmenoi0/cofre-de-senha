@@ -1,8 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cofredesenha">
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+
    <application
-        android:label="Cofre de Senha"
+        android:label="Password manager"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -32,4 +33,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
 </manifest>
