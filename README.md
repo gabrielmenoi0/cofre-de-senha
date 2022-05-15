@@ -7,7 +7,7 @@ Versões:
 Flutter - 3.0.0 e
 Dart - 2.17.0
 
-## Equipe dessenvolvedora
+## Equipe desenvolvedora
 
 ```
 Gabriel Doratiotto Menoi - Dessenvolvedor Mobile
