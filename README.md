@@ -3,8 +3,8 @@
 Password Manager foi desenvolvido com Flutter que é uma tecnologia Multiplataforma, podendo
 assim ser rodado tanto no Android como no IOS, fazendo uso da linguagem de programação Dart.
 
-Versões
-Flutter - 3.0.0
+Versões: 
+Flutter - 3.0.0 e
 Dart - 2.17.0
 
 ## Equipe dessenvolvedora
