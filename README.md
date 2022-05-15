@@ -7,6 +7,21 @@ Versões
 Flutter - 3.0.0
 Dart - 2.17.0
 
+## Equipe dessenvolvedora
+
+```
+Gabriel Doratiotto Menoi - Dessenvolvedor Mobile
+Gabriel Soares Mielo - PO e UX/UI 
+Tiago Santos - UX/UI e testes de software
+Pedro Henrique Cordeiro - Testes de software
+```
+
+## Link do protótipo
+
+```
+https://www.figma.com/file/h3eSYzVsJRb04acbqjOMzf/SENHA
+```
+
 ## Inicializando
 
 **Passo 1:**
