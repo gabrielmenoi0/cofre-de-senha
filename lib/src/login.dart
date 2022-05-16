@@ -2,8 +2,6 @@ import 'package:cofredesenha/data/database.dart';
 import 'package:cofredesenha/models/cliente.dart';
 import 'package:cofredesenha/models/loginModel.dart';
 import 'package:cofredesenha/src/home.dart';
-import 'package:cofredesenha/src/home/viewPassword.dart';
-import 'package:cofredesenha/src/register/register.steps.view.dart';
 import 'package:cofredesenha/src/tour/tour_view.dart';
 import 'package:cofredesenha/utils/button.dart';
 import 'package:cofredesenha/utils/images.dart';

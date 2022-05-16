@@ -41,6 +41,7 @@ const String columnpasswordSocial = 'passwordSocial';
 const String columnObservationSocial = 'ob';
 
 
+
 class DatabaseProvider {
 
   DatabaseProvider._();
@@ -254,7 +255,6 @@ class DatabaseProvider {
       columnLocal: saveAccountModel.local ?? "",
       columnPassword: saveAccountModel.password ?? "",
       columnObservation: saveAccountModel.observation ?? "",
-
     });
 
     return res;

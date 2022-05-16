@@ -1,8 +1,11 @@
+import 'package:clipboard/clipboard.dart';
+import 'package:cofredesenha/data/cache/strings.dart';
 import 'package:cofredesenha/data/database.dart';
 import 'package:cofredesenha/models/BankModel.dart';
 import 'package:cofredesenha/models/SaveAccaunt.dart';
 import 'package:cofredesenha/models/cliente.dart';
 import 'package:cofredesenha/models/socialModel.dart';
+import 'package:cofredesenha/src/home/emptyrefund.dart';
 import 'package:cofredesenha/src/password/add/addOthers.dart';
 import 'package:cofredesenha/src/password/edit/editBank.dart';
 import 'package:cofredesenha/src/password/edit/editOthers.dart';
@@ -134,7 +137,7 @@ class _ViewPassword extends State<ViewPassword> {
   social(){
     return Column(
       children: [
-        searchSocial(),
+        Padding(padding: EdgeInsets.all(10),child:searchSocial(),),
         SizedBox(height: 10,),
         FutureBuilder<List<SocialModel>>(
           future: _dbHelper.getSocial(),
@@ -149,8 +152,12 @@ class _ViewPassword extends State<ViewPassword> {
             // _items.sort((a,b) => a.createdAt.isAfter(b.createdAt)? -1: 1);
 
             if (snapshot.data!.isEmpty) {
-              return emptyRefund();
+              return SizedBox(
+                height: 300,
+                child: EmpryRefund(),
+              );
             }
+            
             searchResultSocial.clear();
 
             if(itemsSocial.isEmpty && _textControllerSocial.text.isEmpty){
@@ -170,7 +177,7 @@ class _ViewPassword extends State<ViewPassword> {
   bank(){
     return Column(
       children: [
-        searchBank(),
+        Padding(padding: EdgeInsets.all(10),child:searchBank(),),
         SizedBox(height: 10,),
         FutureBuilder<List<BankModel>>(
           future: _dbHelper.getBank(),
@@ -185,8 +192,9 @@ class _ViewPassword extends State<ViewPassword> {
             // _items.sort((a,b) => a.createdAt.isAfter(b.createdAt)? -1: 1);
 
             if (snapshot.data!.isEmpty) {
-              return emptyRefund();
-            }
+                return Center(
+                child: emptyRefund(),
+              );            }
             searchResultBank.clear();
             if(itemsBank.isEmpty && _textControllerBank.text.isEmpty){
               searchResultBank.addAll(snapshot.data!);
@@ -206,7 +214,7 @@ class _ViewPassword extends State<ViewPassword> {
   others(){
     return Column(
       children: [
-        searchOthers(),
+        Padding(padding: EdgeInsets.all(10),child:searchOthers(),),
         SizedBox(height: 10,),
         FutureBuilder<List<SaveAccountModel>>(
           future: _dbHelper.getAccount(),
@@ -221,7 +229,9 @@ class _ViewPassword extends State<ViewPassword> {
             // _items.sort((a,b) => a.createdAt.isAfter(b.createdAt)? -1: 1);
 
             if (snapshot.data!.isEmpty) {
-              return emptyRefund();
+              return Center(
+                child: emptyRefund(),
+              );
             }
 
             searchResultOthers.clear();
@@ -279,10 +289,10 @@ class _ViewPassword extends State<ViewPassword> {
       },
       decoration: const InputDecoration(
           hintText: "Pesquise a rede social",
-          fillColor: Color.fromRGBO(248, 249, 250, 1),
+          fillColor: DefaultColors.lightColor1,
           filled: true,
           border: InputBorder.none,
-          prefixIcon: Icon(Icons.search)),
+          prefixIcon: Icon(Icons.search,color: DefaultColors.secondaryColor,)),
     );
   }
   onSearchTextChangedOthers(String text) async {
@@ -305,10 +315,10 @@ class _ViewPassword extends State<ViewPassword> {
       },
       decoration: const InputDecoration(
           hintText: "Pesquise ",
-          fillColor: Color.fromRGBO(248, 249, 250, 1),
+          fillColor: DefaultColors.lightColor1,
           filled: true,
           border: InputBorder.none,
-          prefixIcon: Icon(Icons.search)),
+          prefixIcon: Icon(Icons.search,color: DefaultColors.secondaryColor,)),
     );
   }
   onSearchTextChangedBank(String text) async {
@@ -331,10 +341,10 @@ class _ViewPassword extends State<ViewPassword> {
       },
       decoration: const InputDecoration(
           hintText: "Pesquise o banco",
-          fillColor: Color.fromRGBO(248, 249, 250, 1),
+          fillColor: DefaultColors.lightColor1,
           filled: true,
           border: InputBorder.none,
-          prefixIcon: Icon(Icons.search)),
+          prefixIcon: Icon(Icons.search,color: DefaultColors.secondaryColor,)),
     );
   }
 
@@ -424,90 +434,7 @@ class _ViewPassword extends State<ViewPassword> {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(14), topRight: Radius.circular(14)));
 
-  bottomExludeSocial(BuildContext context,SocialModel item) {
-    return showModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        isDismissible: false,
-        enableDrag: false,
-        context: context,
-        builder: (BuildContext bc) {
-          return StatefulBuilder(builder: (context, setState) {
-            return Wrap(
-              children: [
-                Container(
-                  decoration: decorationBottom(),
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        closeBottom(context),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Atenção!",
-                              style: DefaultStyle.textStyle(
-                                  size: 24,
-                                  fontWeight: FontWeight.w700,
-                                  color: DefaultColors.secondaryColor),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 25,
-                        ),
-                        Text(
-                          "Tem certeza que deseja excluir essa conta?",
-                          style: DefaultStyle.textStyle(
-                              size: 20,
-                              fontWeight: FontWeight.w400,
-                              color: DefaultColors.darkColor1),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
-                                child: DefaultButton(
-                                  context: context,
-                                  title: "Sim",
-                                ),
-                                onTap: () => exludeSocial(item),
-                              ),
-
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Expanded(
-                              child: DefaultButton(
-                                fillColor: DefaultColors.secondaryColor,
-                                context: context,
-                                title: "Não",
-                                callback: () => Navigator.pop(context),
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            );
-          });
-        });
-  }
+ 
   bottomExludeBank(BuildContext context,BankModel item) {
     return showModalBottomSheet(
         backgroundColor: Colors.transparent,
@@ -679,8 +606,13 @@ class _ViewPassword extends State<ViewPassword> {
 
   _cardSocial(SocialModel item) {
     tap(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordSocial(nome:item.name ,password: item.password,ob: item.ob,type: item.type,id: item.id,)));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordSocial(nome:item.name ,password: item.password,ob: item.ob,type: item.type,id: item.id,model: item,)));
     }
+    _copySocial(){
+    FlutterClipboard.copy(item.password!).then(( value ) =>
+        print('copied'));
+    DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!\n", isError: false);
+  }
     return Container(
       height: 100,
       margin: EdgeInsets.all(15),
@@ -698,21 +630,30 @@ class _ViewPassword extends State<ViewPassword> {
             child: Column(
               children: [
                 ListTile(
-                  leading: Icon(Icons.person, color: DefaultColors.secondaryColor,),
-                  title: Text("${item.name!}",
+                  leading: Text("${item.name!}",
                     textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
                     style: DefaultStyle.textStyle(
                       color: DefaultColors.secondaryColor,
                       fontWeight: FontWeight.w700,
                       size: 18
                   ),),
-                  trailing: GestureDetector(
-                      onTap: ()=> callbottomSocial(item),
-                      child: Icon(
-                        Icons.delete,
-                        size: 30,
-                      )
-                  ),
+                  title: Text("${item.type!}",
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: DefaultStyle.textStyle(
+                      color: DefaultColors.darkColor2,
+                      fontWeight: FontWeight.w700,
+                      size: 18
+                  ),),
+                  trailing: IconButton(onPressed: (){_copySocial();}, icon: Icon(Icons.copy,size: 35,)),
+                  // GestureDetector(
+                  //     onTap: ()=> callbottomSocial(item),
+                  //     child: Icon(
+                  //       Icons.delete,
+                  //       size: 30,
+                  //     )
+                  // ),
                 ),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -740,9 +681,15 @@ class _ViewPassword extends State<ViewPassword> {
       ),
     );
   }
+
   _cardBank(BankModel item) {
     tap(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordBank(bank:item.bank ,password: item.password,agency: item.agency, accaunt: item.account,id: item.id,)));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordBank(bank:item.bank ,password: item.password,agency: item.agency, accaunt: item.account,id: item.id,model: item,)));
+    }
+    _copyBank(){
+      FlutterClipboard.copy(item.password!).then(( value ) =>
+          print('copied'));
+      DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!\n", isError: false);
     }
     return Container(
       height: 100,
@@ -760,23 +707,24 @@ class _ViewPassword extends State<ViewPassword> {
           child: Padding(padding: EdgeInsets.all(15),
               child: Column(
                 children: [
-                  ListTile(
-                    leading: Icon(Icons.person, color: DefaultColors.secondaryColor,),
-                    title: Text("${item.bank!}",
-                      textAlign: TextAlign.center,
-                      style: DefaultStyle.textStyle(
-                          color: DefaultColors.secondaryColor,
-                          fontWeight: FontWeight.w700,
-                          size: 18
-                      ),),
-                    trailing: GestureDetector(
-                        onTap: ()=> callbottomBank(item),
-                        child: Icon(
-                          Icons.delete,
-                          size: 30,
-                        )
-                    ),
-                  ),
+              ListTile(
+              leading: Text("${item.bank!}",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: DefaultStyle.textStyle(
+                    color: DefaultColors.secondaryColor,
+                    fontWeight: FontWeight.w700,
+                    size: 18
+                ),),
+            title: Text("${item.account!}",
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: DefaultStyle.textStyle(
+                  color: DefaultColors.darkColor2,
+                  fontWeight: FontWeight.w700,
+                  size: 18
+              ),),
+            trailing: IconButton(onPressed: (){_copyBank();}, icon: Icon(Icons.copy,size: 35,)),
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   //   children: [
@@ -796,6 +744,7 @@ class _ViewPassword extends State<ViewPassword> {
                   //     ),
                   //   ],
                   // )
+              ),
                 ],
               )
           ),
@@ -805,7 +754,12 @@ class _ViewPassword extends State<ViewPassword> {
   }
   _card(SaveAccountModel item) {
     tap(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Password(id: item.id,ob: item.observation,pass: item.password,local: item.password,)));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Password(id: item.id,ob: item.observation,pass: item.password,local: item.local, model: item,)));
+    }
+    _copyOthers(){
+      FlutterClipboard.copy(item.password!).then(( value ) =>
+          print('copied'));
+      DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!\n", isError: false);
     }
     return Container(
       height: 100,
@@ -823,43 +777,25 @@ class _ViewPassword extends State<ViewPassword> {
           child: Padding(padding: EdgeInsets.all(15),
               child: Column(
                 children: [
-                  ListTile(
-                    leading: Icon(Icons.person, color: DefaultColors.secondaryColor,),
-                    title: Text("${item.local!}",
-                      textAlign: TextAlign.center,
-                      style: DefaultStyle.textStyle(
-                          color: DefaultColors.secondaryColor,
-                          fontWeight: FontWeight.w700,
-                          size: 18
-                      ),),
-                    trailing: GestureDetector(
-                        onTap: ()=> callbottom(item),
-                        child: Icon(
-                          Icons.delete,
-                          size: 30,
-                        )
-                    ),
-                  ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     GestureDetector(
-                  //         onTap: ()=> editSocial(item),
-                  //         child: Icon(
-                  //           Icons.edit,
-                  //           size: 30,
-                  //         )
-                  //     ),
-                  //     GestureDetector(
-                  //         onTap: ()=> callbottomSocial(item),
-                  //         child: Icon(
-                  //           Icons.delete,
-                  //           size: 30,
-                  //         )
-                  //     ),
-                  //   ],
-                  // )
-                ],
+              ListTile(
+              leading: Text("${item.local ?? " "}",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: DefaultStyle.textStyle(
+                    color: DefaultColors.secondaryColor,
+                    fontWeight: FontWeight.w700,
+                    size: 18
+                ),),
+            title: Text("${item.observation ?? " "}",
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: DefaultStyle.textStyle(
+                  color: DefaultColors.darkColor2,
+                  fontWeight: FontWeight.w700,
+                  size: 18
+              ),),
+            trailing: IconButton(onPressed: (){_copyOthers();}, icon: Icon(Icons.copy,size: 35,)),
+              )],
               )
           ),
         ),
@@ -876,21 +812,12 @@ class _ViewPassword extends State<ViewPassword> {
 
     });
   }
-  callbottomSocial(SocialModel item){
-    return bottomExludeSocial(context, item);
-  }
+
   // selectbill(SaveAccountModel item){
   //   Navigator.of(context).pop(item);
   //   print(item);
   // }
-  exludeSocial(SocialModel item) async {
 
-    var auth = await _dbHelper.deleteSocial(item);
-    Navigator.pop(context);
-    setState(() {
-
-    });
-  }
 
   editBank(BankModel model){
     var result = Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => EditBank(accaunt: model.account,agency: model.agency,bank: model.bank,password: model.password,type: model.type,id: model.id,)), (route) => false);
@@ -951,7 +878,7 @@ class _ViewPassword extends State<ViewPassword> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Nenhuma Senha encontrada!",
+                  "Nenhuma senha encontrada!",
                   style: DefaultStyle.textStyle(
                       fontWeight: FontWeight.w700,
                       color: DefaultColors.darkColor2,
@@ -982,7 +909,7 @@ class _ViewPassword extends State<ViewPassword> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Nenhuma Senha cadastrada!",
+                  "Nenhuma senha cadastrada!",
                   style: DefaultStyle.textStyle(
                       fontWeight: FontWeight.w700,
                       color: DefaultColors.darkColor2,

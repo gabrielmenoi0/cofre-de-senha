@@ -3,6 +3,7 @@ import 'package:cofredesenha/models/SaveAccaunt.dart';
 import 'package:cofredesenha/models/passwordModel.dart';
 import 'package:cofredesenha/src/home.dart';
 import 'package:cofredesenha/src/home/passwordGenerator.dart';
+import 'package:cofredesenha/src/home/passwordGenerator3.dart';
 import 'package:cofredesenha/src/home/viewPassword.dart';
 import 'package:cofredesenha/utils/button.dart';
 import 'package:cofredesenha/utils/screenUtils.dart';
@@ -15,9 +16,10 @@ class EditPassword extends StatefulWidget {
   String? pass;
   String? ob;
   int? id;
+  SaveAccountModel? model;
 
 
-  EditPassword({Key? key, this.local, this.pass,this.ob, this.id}) : super(key: key);
+  EditPassword({Key? key, this.local, this.pass,this.ob, this.id, this.model}) : super(key: key);
 
   @override
   _EditPassword createState() => _EditPassword();
@@ -46,17 +48,20 @@ class _EditPassword extends State<EditPassword> {
   TextEditingController localController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController observationController = TextEditingController();
+  bool _showPassword = false;
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: _button(),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: DefaultColors.secondaryColor,
+        actions: [IconButton(onPressed: (){callbottomSocial(widget.model!);}, icon: Icon(Icons.delete_outline_outlined,size: 30,color: Colors.white,)),],
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: Colors.white,
             size: 20,
           ),
           onPressed: (){
@@ -71,7 +76,7 @@ class _EditPassword extends State<EditPassword> {
             style: DefaultStyle.textStyle(
                 size: 24,
                 fontWeight: FontWeight.w700,
-                color: DefaultColors.darkColor2)),
+                color: Colors.white)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -79,18 +84,136 @@ class _EditPassword extends State<EditPassword> {
               key: _formKey,
               child: Column(
                 children: [
-                  formBill(),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 15),child: formBill(),),
                   SizedBox(
-                    height: 500,
-                    child: PasswordGenerator(),
+                    height: 20,
+                    // child: PasswordGenerator(),
                   ),
+                  DefaultButton(context: context, title: "Clique aqui para gerar uma senha",callback: ()=>  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => PasswordGenerator3())))
                 ],
               ),
-            )
+            ),
         ),
       ),
     );
   }
+  callbottomSocial(SaveAccountModel item){
+    return bottomExludeSocial(context, item);
+  }
+  exludeSocial(SaveAccountModel item) async {
+
+    var auth = await _dbHelper.deleteAccount(item);
+    Navigator.pop(context);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+
+    setState(() {
+
+    });
+  }
+  bottomExludeSocial(BuildContext context,SaveAccountModel item) {
+    return showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        isDismissible: false,
+        enableDrag: false,
+        context: context,
+        builder: (BuildContext bc) {
+          return StatefulBuilder(builder: (context, setState) {
+            return Wrap(
+              children: [
+                Container(
+                  decoration: decorationBottom(),
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        closeBottom(context),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Atenção!",
+                              style: DefaultStyle.textStyle(
+                                  size: 24,
+                                  fontWeight: FontWeight.w700,
+                                  color: DefaultColors.secondaryColor),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        Text(
+                          "Tem certeza que deseja excluir essa conta?",
+                          style: DefaultStyle.textStyle(
+                              size: 20,
+                              fontWeight: FontWeight.w400,
+                              color: DefaultColors.darkColor1),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                child: DefaultButton(
+                                  context: context,
+                                  title: "Sim",
+                                ),
+                                onTap: () => exludeSocial(item),
+                              ),
+
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: DefaultButton(
+                                fillColor: DefaultColors.secondaryColor,
+                                context: context,
+                                title: "Não",
+                                callback: () => Navigator.pop(context),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          });
+        });
+  }
+  static Widget closeBottom(BuildContext context,
+      {Color? iconColor = Colors.grey}) =>
+      Container(
+        alignment: Alignment.centerRight,
+        child: IconButton(
+            icon: Icon(
+              Icons.clear,
+              color: iconColor,
+            ),
+            onPressed: () => Navigator.pop(context)),
+      );
+
+  static BoxDecoration decorationBottom() =>
+      const BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(14), topRight: Radius.circular(14)));
+
   formBill() {
     return Column(
       children: [
@@ -112,23 +235,52 @@ class _EditPassword extends State<EditPassword> {
             color: Colors.black,
           ),
           decoration: InputDecoration(
-            labelText: "Local",
+            labelText: "Plataforma",
             labelStyle: DefaultStyle.textStyle(
                 size: 20,
                 color: DefaultColors.darkColor2,
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         SizedBox(
           height: 24,
         ),
+        // TextFormField(
+        //   onSaved: (value){
+        //     save.username = userController.text;
+        //   },
+        //   controller: userController,
+        //   keyboardType: TextInputType.text,
+        //   validator: (String? name) {
+        //     if (name!.isEmpty) {
+        //       return "Campo obrigatório";
+        //     }
+        //   },
+        //   style: TextStyle(
+        //     color: Colors.black,
+        //   ),
+        //   decoration: InputDecoration(
+        //     labelText: "Usuário",
+        //     labelStyle: DefaultStyle.textStyle(
+        //         size: 20,
+        //         color: DefaultColors.darkColor2,
+        //         fontWeight: FontWeight.w400),
+        //     enabledBorder: UnderlineInputBorder(
+        //         borderSide:
+        //         BorderSide(color: DefaultColors.secondaryColor)),
+        //   ),
+        // ),
+        // SizedBox(
+        //   height: 24,
+        // ),
         TextFormField(
           onSaved: (value){
             save.password = passwordController.text;
           },
+
           controller: passwordController,
           keyboardType: TextInputType.text,
           // inputFormatters: [mask],
@@ -140,7 +292,21 @@ class _EditPassword extends State<EditPassword> {
           style: TextStyle(
             color: Colors.black,
           ),
+          obscureText: _showPassword == false ? true : false,
           decoration: InputDecoration(
+            suffixIcon: GestureDetector(
+              child: Icon(
+                _showPassword == false
+                    ? Icons.visibility_off
+                    : Icons.visibility,
+                color: DefaultColors.secondaryColor,
+              ),
+              onTap: () {
+                setState(() {
+                  _showPassword = !_showPassword;
+                });
+              },
+            ),
             labelText: "Senha",
             labelStyle: DefaultStyle.textStyle(
                 size: 20,
@@ -148,40 +314,77 @@ class _EditPassword extends State<EditPassword> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         SizedBox(
           height: 24,
         ),
-        TextFormField(
-          onSaved: (value){
-            save.observation = observationController.text;
-          },
-          controller: observationController,
-          keyboardType: TextInputType.text,
-          // validator: (String? name) {
-          //   if (name!.isEmpty) {
-          //     return "Campo obrigatório";
-          //   }
-          // },
-          style: TextStyle(
-            color: Colors.black,
-          ),
-          decoration: InputDecoration(
-            labelText: "Observação",
-            labelStyle: DefaultStyle.textStyle(
-                size: 20,
-                color: DefaultColors.darkColor2,
-                fontWeight: FontWeight.w400),
-            enabledBorder: UnderlineInputBorder(
-                borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
-          ),
-        ),
         SizedBox(
-          height: 24,
+          height: 120,
+          child: Card(
+            elevation: 10,
+            color: Colors.white, //Color.fromRGBO(241, 241, 243, 1),
+            child: Container(
+              //height: 200,
+              // padding: EdgeInsets.all(10),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(4),
+                              topRight: Radius.circular(4)),
+                          // color: Color.fromRGBO(241, 241, 243, 1),
+                        ),
+                        //Color.fromRGBO(241, 241, 243, 1),
+                        padding:
+                        EdgeInsets.all(10), //Color.fromRGBO(241, 241, 243, 1),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Observações",
+                          style: DefaultStyle.textStyle(
+                              size: 20,
+                              color: DefaultColors.darkColor2,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),Padding(padding: EdgeInsets.all(10),child:                         TextFormField(
+                        onSaved: (value){
+                          save.observation = observationController.text;
+                        },
+                        controller: observationController,
+                        keyboardType: TextInputType.text,
+                        // validator: (String? name) {
+                        //   if (name!.isEmpty) {
+                        //     return "Campo obrigatório";
+                        //   }
+                        // },
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                        decoration: InputDecoration(
+                          // labelText: "Escreva aqui suas observações",
+                          // labelStyle: DefaultStyle.textStyle(
+                          //     size: 14,
+                          //     color: DefaultColors.darkColor2,
+                          //     fontWeight: FontWeight.w400),
+
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                              BorderSide(
+                                  color: Colors.white
+                                // color: DefaultColors.secondaryColor
+                              ),
+                              borderRadius:BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),topLeft: Radius.circular(10),topRight: Radius.circular(10)) ),
+                        ),
+                      ),),
+
+                    ])),
+          ),
         ),
+
       ],
     );
   }

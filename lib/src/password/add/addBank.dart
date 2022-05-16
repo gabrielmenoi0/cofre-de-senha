@@ -43,11 +43,11 @@ class _AddBank extends State<AddBank> {
     return Scaffold(
       bottomNavigationBar: _button(),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: DefaultColors.secondaryColor,
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: Colors.white,
               size: 20,
             ),
             onPressed: () {
@@ -56,11 +56,11 @@ class _AddBank extends State<AddBank> {
                   context, MaterialPageRoute(builder: (context) => Home()));
             }
         ),
-        title: Text("Adicione sua senha",
+        title: Text("Adicione seus dados",
             style: DefaultStyle.textStyle(
                 size: 24,
                 fontWeight: FontWeight.w700,
-                color: DefaultColors.darkColor2)),
+                color: Colors.white)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -68,7 +68,8 @@ class _AddBank extends State<AddBank> {
               key: _formKey,
               child: Column(
                 children: [
-                  formBill(),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 15),child: formBill(),),
+
                 ],
               ),
             )
@@ -104,7 +105,7 @@ class _AddBank extends State<AddBank> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         SizedBox(
@@ -133,7 +134,7 @@ class _AddBank extends State<AddBank> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         SizedBox(
@@ -145,11 +146,11 @@ class _AddBank extends State<AddBank> {
           },
           controller: AccauntController,
           keyboardType: TextInputType.text,
-          // validator: (String? name) {
-          //   if (name!.isEmpty) {
-          //     return "Campo obrigatório";
-          //   }
-          // },
+          validator: (String? name) {
+            if (name!.isEmpty) {
+              return "Campo obrigatório";
+            }
+          },
           style: TextStyle(
             color: Colors.black,
           ),
@@ -161,7 +162,7 @@ class _AddBank extends State<AddBank> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         SizedBox(
@@ -174,11 +175,11 @@ class _AddBank extends State<AddBank> {
           },
           controller: passwordController,
           keyboardType: TextInputType.text,
-          // validator: (String? name) {
-          //   if (name!.isEmpty) {
-          //     return "Campo obrigatório";
-          //   }
-          // },
+          validator: (String? name) {
+            if (name!.isEmpty) {
+              return "Campo obrigatório";
+            }
+          },
           style: TextStyle(
             color: Colors.black,
           ),
@@ -190,7 +191,7 @@ class _AddBank extends State<AddBank> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
 

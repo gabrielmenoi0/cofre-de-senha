@@ -78,7 +78,7 @@ class _EditProfile extends State<EditProfile> {
               key: _formKey,
               child: Column(
                 children: [
-                  formBill(),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 15,vertical: 0),child: formBill(),)
                 ],
               ),
             )
@@ -114,7 +114,7 @@ class _EditProfile extends State<EditProfile> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         SizedBox(
@@ -142,7 +142,7 @@ class _EditProfile extends State<EditProfile> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         SizedBox(
@@ -171,7 +171,7 @@ class _EditProfile extends State<EditProfile> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
       ],

@@ -1,4 +1,5 @@
 import 'package:cofredesenha/models/SaveAccaunt.dart';
+import 'package:cofredesenha/models/socialModel.dart';
 import 'package:cofredesenha/src/home.dart';
 import 'package:cofredesenha/src/home/viewPassword.dart';
 import 'package:cofredesenha/src/password/edit/editSocial.dart';
@@ -14,7 +15,8 @@ class PasswordSocial extends StatefulWidget {
   String? type;
   String? ob;
   int? id;
-  PasswordSocial({Key? key,this.nome,this.password,this.type,this.ob,this.id}) : super(key: key);
+  SocialModel? model;
+  PasswordSocial({Key? key,this.nome,this.password,this.type,this.ob,this.id,this.model}) : super(key: key);
 
   @override
   _PasswordSocial createState() => _PasswordSocial();
@@ -39,16 +41,16 @@ class _PasswordSocial extends State<PasswordSocial> {
         backgroundColor: DefaultColors.secondaryColor,
         onPressed: () {
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => EditSocial(password: widget.password,id: widget.id,type: widget.type,nome: widget.nome,ob: widget.ob,)));},
+              MaterialPageRoute(builder: (context) => EditSocial(password: widget.password,id: widget.id,type: widget.type,nome: widget.nome,ob: widget.ob,model: widget.model,)));},
         child: Icon(Icons.edit,color: Colors.white,),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: DefaultColors.secondaryColor,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: Colors.white,
             size: 20,
           ),
           onPressed: () => Navigator.pushReplacement(
@@ -58,13 +60,13 @@ class _PasswordSocial extends State<PasswordSocial> {
             style: DefaultStyle.textStyle(
                 size: 24,
                 fontWeight: FontWeight.w700,
-                color: DefaultColors.darkColor2)),
+                color: Colors.white)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
             child: Column(
               children: [
-                formBill(),
+                Padding(padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),child: formBill(),),
               ],
             )
         ),
@@ -81,20 +83,48 @@ class _PasswordSocial extends State<PasswordSocial> {
             child: Row(
               children: [
                 Icon(
-                  Icons.local_hotel_sharp,
+                  Icons.supervisor_account_outlined,
                   color: DefaultColors.secondaryColor,
                 ),
-                SizedBox(width: 10,),
-                Text("${widget.nome!}", style: DefaultStyle.textStyle(
+                SizedBox(width: 20,),
+                Text("${widget.nome!}",
+                  overflow: TextOverflow.ellipsis,
+                  style: DefaultStyle.textStyle(
                     color: DefaultColors.secondaryColor,
                     fontWeight: FontWeight.w700,
                     size: 18
                 ),),
+                Spacer(),
+                IconButton(onPressed: (){_copyPlataforma();}, icon: Icon(Icons.copy)),
               ],
             ),
           ),
         ),
-        SizedBox(height: 25,),
+        SizedBox(height: 24,),
+        Card(
+          elevation: 10,
+          child: Padding(padding: EdgeInsets.all(15),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.person,
+                  color: DefaultColors.secondaryColor,
+                ),
+                SizedBox(width: 20,),
+                Text("${widget.type!}",
+                  overflow: TextOverflow.ellipsis,
+                  style: DefaultStyle.textStyle(
+                    color: DefaultColors.secondaryColor,
+                    fontWeight: FontWeight.w700,
+                    size: 18
+                ),),
+                Spacer(),
+                IconButton(onPressed: (){_copyName();}, icon: Icon(Icons.copy)),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(height: 24,),
         Card(
           elevation: 10,
           child: Padding(padding: EdgeInsets.all(15),
@@ -107,8 +137,10 @@ class _PasswordSocial extends State<PasswordSocial> {
                         Icons.password,
                         color: DefaultColors.secondaryColor,
                       ),
-                      SizedBox(width: 10,),
-                      Text("Senha: ${widget.password!}", style: DefaultStyle.textStyle(
+                      SizedBox(width: 20,),
+                      Text("${widget.password!}",
+                        overflow: TextOverflow.ellipsis,
+                        style: DefaultStyle.textStyle(
                           color: DefaultColors.secondaryColor,
                           fontWeight: FontWeight.w700,
                           size: 18
@@ -151,5 +183,15 @@ class _PasswordSocial extends State<PasswordSocial> {
     FlutterClipboard.copy(widget.password!).then(( value ) =>
         print('copied'));
     DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false);
+  }
+    _copyName(){
+    FlutterClipboard.copy(widget.nome!).then(( value ) =>
+        print('copied'));
+    DefaultScreenUtils.onMessage(context: context, message: "Nome copiada para sua Área de transferência!", isError: false);
+  }
+      _copyPlataforma(){
+    FlutterClipboard.copy(widget.nome!).then(( value ) =>
+        print('copied'));
+    DefaultScreenUtils.onMessage(context: context, message: "Plataforma copiada para sua Área de transferência!", isError: false);
   }
 }

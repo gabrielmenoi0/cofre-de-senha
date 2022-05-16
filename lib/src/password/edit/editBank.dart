@@ -6,6 +6,8 @@ import 'package:cofredesenha/models/SaveAccaunt.dart';
 import 'package:cofredesenha/models/passwordModel.dart';
 import 'package:cofredesenha/src/home.dart';
 import 'package:cofredesenha/src/home/passwordGenerator.dart';
+import 'package:cofredesenha/src/home/passwordGenerator2.dart';
+import 'package:cofredesenha/src/home/passwordGenerator3.dart';
 import 'package:cofredesenha/src/home/viewPassword.dart';
 import 'package:cofredesenha/utils/button.dart';
 import 'package:cofredesenha/utils/screenUtils.dart';
@@ -21,9 +23,10 @@ class EditBank extends StatefulWidget {
   String? password;
   String? type;
   int? id;
+  BankModel? model;
 
 
-  EditBank({Key? key, this.bank, this.agency, this.accaunt, this.password,this.type, this.id}) : super(key: key);
+  EditBank({Key? key, this.bank, this.agency, this.accaunt, this.password,this.type, this.id, this.model}) : super(key: key);
 
   @override
   _EditBank createState() => _EditBank();
@@ -55,75 +58,20 @@ class _EditBank extends State<EditBank> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController AgencyController = TextEditingController();
   TextEditingController AccauntController = TextEditingController();
-  TextEditingController _controllerTamanho = TextEditingController(text: "8");
-
-  String senha = "";
-
-  bool letrasMaiusculas = true;
-  bool letrasMinusculas = true;
-  bool numeros = true;
-  bool simbolos = true;
-
-  senhaGerada(bool letrasMai, bool letrasMin, bool numeros, bool simbolos) {
-
-    if(letrasMai == false && letrasMin == false && numeros == false && simbolos == false) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-
-              content: Text("Para gerar senha é necessário que pelo menos uma opção esteja selecionada."),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text("OK"),
-                  onPressed: () => Navigator.pop(context),
-                )
-              ],
-
-            );
-          }
-      );
-    } else {
-
-      String letrasMaiusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      String letrasMinusculas = "abcdefghijklmnopqrstuvwxyz";
-      String numbers = "0123456789";
-      String symbolos = "!@#\$%&*(){}[]-_=+<>,./";
-
-      int tam = int.parse(_controllerTamanho.text);
-
-      String senhaGer = "";
-      senhaGer += (letrasMai ? letrasMaiusculas : "");
-      senhaGer += (letrasMin ? letrasMinusculas : "");
-      senhaGer += (numeros ? numbers : "");
-      senhaGer += (simbolos ? symbolos : "");
-
-      String pass = "";
-
-      for(int i = 0; i < tam; i++) {
-        int random = Random.secure().nextInt(senhaGer.length);
-        pass += senhaGer[random];
-        setState(() {
-          senha = pass;
-        });
-      }
-
-      return senha;
-
-    }
-
-  }
+  bool _showPassword = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: _button(),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: DefaultColors.secondaryColor,
+        actions: [IconButton(onPressed: (){callbottomBank(widget.model!);}, icon: Icon(Icons.delete_outline_outlined,size: 30,color: Colors.white,)),],
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: Colors.white,
               size: 20,
             ),
             onPressed: (){
@@ -134,11 +82,11 @@ class _EditBank extends State<EditBank> {
 
             }
         ),
-        title: Text("Edite sua Conta",
+        title: Text("Edite seus dados",
             style: DefaultStyle.textStyle(
                 size: 24,
                 fontWeight: FontWeight.w700,
-                color: DefaultColors.darkColor2)),
+                color: Colors.white)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -146,11 +94,13 @@ class _EditBank extends State<EditBank> {
               key: _formKey,
               child: Column(
                 children: [
-                  formBill(),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 15),child: formBill(),),
                   SizedBox(
-                    height: 500,
-                    child: PasswordGenerator(),
+                    height: 20,
+                    // child: PasswordGenerator(),
                   ),
+                  DefaultButton(context: context, title: "Clique aqui para gerar uma senha",callback: ()=>  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => PasswordGenerator3())))
                 ],
               ),
             )
@@ -158,22 +108,207 @@ class _EditBank extends State<EditBank> {
       ),
     );
   }
-  _botaoGerarSenha() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        DefaultButton(
-            callback: ()=> senhaGerada(
-              letrasMaiusculas,
-              letrasMinusculas,
-              numeros,
-              simbolos,
-            ),
-            context: context, title: "Gerar senha",
-            padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20))
-      ],
-    );
+  callbottomBank(BankModel item){
+    return bottomExludeBank(context, item);
+  }
 
+  exludeBank(BankModel item) async {
+
+    var auth = await _dbHelper.deleteBank(item);
+    Navigator.pop(context);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+
+    setState(() {
+
+    });
+  }
+  static Widget closeBottom(BuildContext context,
+      {Color? iconColor = Colors.grey}) =>
+      Container(
+        alignment: Alignment.centerRight,
+        child: IconButton(
+            icon: Icon(
+              Icons.clear,
+              color: iconColor,
+            ),
+            onPressed: () => Navigator.pop(context)),
+      );
+
+  static BoxDecoration decorationBottom() =>
+      const BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(14), topRight: Radius.circular(14)));
+
+
+  bottomExludeBank(BuildContext context,BankModel item) {
+    return showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        isDismissible: false,
+        enableDrag: false,
+        context: context,
+        builder: (BuildContext bc) {
+          return StatefulBuilder(builder: (context, setState) {
+            return Wrap(
+              children: [
+                Container(
+                  decoration: decorationBottom(),
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        closeBottom(context),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Atenção!",
+                              style: DefaultStyle.textStyle(
+                                  size: 24,
+                                  fontWeight: FontWeight.w700,
+                                  color: DefaultColors.secondaryColor),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        Text(
+                          "Tem certeza que deseja excluir essa conta?",
+                          style: DefaultStyle.textStyle(
+                              size: 20,
+                              fontWeight: FontWeight.w400,
+                              color: DefaultColors.darkColor1),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                child: DefaultButton(
+                                  context: context,
+                                  title: "Sim",
+                                ),
+                                onTap: () => exludeBank(item),
+                              ),
+
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: DefaultButton(
+                                fillColor: DefaultColors.secondaryColor,
+                                context: context,
+                                title: "Não",
+                                callback: () => Navigator.pop(context),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          });
+        });
+  }
+  bottomExlude(BuildContext context,BankModel item) {
+    return showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        isDismissible: false,
+        enableDrag: false,
+        context: context,
+        builder: (BuildContext bc) {
+          return StatefulBuilder(builder: (context, setState) {
+            return Wrap(
+              children: [
+                Container(
+                  decoration: decorationBottom(),
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        closeBottom(context),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Atenção!",
+                              style: DefaultStyle.textStyle(
+                                  size: 24,
+                                  fontWeight: FontWeight.w700,
+                                  color: DefaultColors.secondaryColor),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        Text(
+                          "Tem certeza que deseja excluir essa conta?",
+                          style: DefaultStyle.textStyle(
+                              size: 20,
+                              fontWeight: FontWeight.w400,
+                              color: DefaultColors.darkColor1),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                child: DefaultButton(
+                                  context: context,
+                                  title: "Sim",
+                                ),
+                                onTap: () => exludeBank(item),
+                              ),
+
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: DefaultButton(
+                                fillColor: DefaultColors.secondaryColor,
+                                context: context,
+                                title: "Não",
+                                callback: () => Navigator.pop(context),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          });
+        });
   }
   formBill() {
     return Column(
@@ -203,7 +338,7 @@ class _EditBank extends State<EditBank> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         SizedBox(
@@ -232,7 +367,7 @@ class _EditBank extends State<EditBank> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         SizedBox(
@@ -244,11 +379,11 @@ class _EditBank extends State<EditBank> {
           },
           controller: AccauntController,
           keyboardType: TextInputType.text,
-          // validator: (String? name) {
-          //   if (name!.isEmpty) {
-          //     return "Campo obrigatório";
-          //   }
-          // },
+          validator: (String? name) {
+            if (name!.isEmpty) {
+              return "Campo obrigatório";
+            }
+          },
           style: TextStyle(
             color: Colors.black,
           ),
@@ -260,7 +395,7 @@ class _EditBank extends State<EditBank> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         SizedBox(
@@ -269,19 +404,33 @@ class _EditBank extends State<EditBank> {
         TextFormField(
           onSaved: (value){
             save.password = passwordController.text;
-            save.type = "Default";
           },
           controller: passwordController,
           keyboardType: TextInputType.text,
-          // validator: (String? name) {
-          //   if (name!.isEmpty) {
-          //     return "Campo obrigatório";
-          //   }
-          // },
+          // inputFormatters: [mask],
+          validator: (String? name) {
+            if (name!.isEmpty) {
+              return "Campo obrigatório";
+            }
+          },
           style: TextStyle(
             color: Colors.black,
           ),
+          obscureText: _showPassword == false ? true : false,
           decoration: InputDecoration(
+            suffixIcon: GestureDetector(
+              child: Icon(
+                _showPassword == false
+                    ? Icons.visibility_off
+                    : Icons.visibility,
+                color: DefaultColors.secondaryColor,
+              ),
+              onTap: () {
+                setState(() {
+                  _showPassword = !_showPassword;
+                });
+              },
+            ),
             labelText: "Senha",
             labelStyle: DefaultStyle.textStyle(
                 size: 20,
@@ -289,7 +438,7 @@ class _EditBank extends State<EditBank> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
       ],
@@ -326,27 +475,4 @@ class _EditBank extends State<EditBank> {
 
   }
 
-  emptyRefund() {
-    return Column(
-      children: [
-        // Center(
-        //     child: Image.asset(
-        //       DefaultAssets.emptyDependents,
-        //       height: 250,
-        //     )),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Nenhuma senha cadastrada!",
-              style: DefaultStyle.textStyle(
-                  fontWeight: FontWeight.w700,
-                  color: DefaultColors.darkColor2,
-                  size: 24),
-            )
-          ],
-        ),
-      ],
-    );
-  }
 }

@@ -13,7 +13,9 @@ class Password extends StatefulWidget {
   String? pass;
   String? ob;
   int? id;
-  Password({Key? key,this.local,this.pass,this.ob, this.id}) : super(key: key);
+  String? username;
+  SaveAccountModel? model;
+  Password({Key? key,this.local,this.pass,this.ob, this.id,this.username,this.model}) : super(key: key);
 
   @override
   _Password createState() => _Password();
@@ -41,32 +43,33 @@ class _Password extends State<Password> {
               MaterialPageRoute(builder: (context) => EditPassword(local: widget.local,pass: widget.pass,
               ob: widget.ob,
               id: widget.id,
+                model: widget.model,
               )));},
         child: Icon(Icons.edit,color: Colors.white,),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: DefaultColors.secondaryColor,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: Colors.white,
             size: 20,
           ),
           onPressed: () => Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => Home())),
         ),
-        title: Text("Senhas",
+        title: Text("Outras senhas",
             style: DefaultStyle.textStyle(
                 size: 24,
                 fontWeight: FontWeight.w700,
-                color: DefaultColors.darkColor2)),
+                color: Colors.white)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
             child: Column(
               children: [
-                formBill(),
+                Padding(padding: EdgeInsets.symmetric(horizontal: 15),child: formBill(),)
               ],
             )
         ),
@@ -86,11 +89,13 @@ class _Password extends State<Password> {
                 Row(
                   children: [
                     Icon(
-                      Icons.local_hotel_sharp,
+                      Icons.supervisor_account_outlined,
                       color: DefaultColors.secondaryColor,
                     ),
                     SizedBox(width: 10,),
-                    Text("Local: ${widget.local!}", style: DefaultStyle.textStyle(
+                    Text("Plataforma: ${widget.local!}",
+                      overflow: TextOverflow.ellipsis,
+                      style: DefaultStyle.textStyle(
                         color: DefaultColors.secondaryColor,
                         fontWeight: FontWeight.w700,
                         size: 18
@@ -101,7 +106,34 @@ class _Password extends State<Password> {
             ),
             ),
         ),
-       SizedBox(height: 25,),
+       // SizedBox(height: 24,),
+       //  Card(
+       //    elevation: 10,
+       //    child: Padding(padding: EdgeInsets.all(15),
+       //      child: Row(
+       //        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+       //        children: [
+       //          Row(
+       //            children: [
+       //              Icon(
+       //                Icons.supervisor_account_outlined,
+       //                color: DefaultColors.secondaryColor,
+       //              ),
+       //              SizedBox(width: 10,),
+       //              Text("Usuário: ${widget.username!}",
+       //                overflow: TextOverflow.ellipsis,
+       //                style: DefaultStyle.textStyle(
+       //                    color: DefaultColors.secondaryColor,
+       //                    fontWeight: FontWeight.w700,
+       //                    size: 18
+       //                ),),
+       //            ],
+       //          ),
+       //        ],
+       //      ),
+       //    ),
+       //  ),
+        SizedBox(height: 24,),
         Card(
           elevation: 10,
           child: Padding(padding: EdgeInsets.all(15),
@@ -115,7 +147,9 @@ class _Password extends State<Password> {
                       color: DefaultColors.secondaryColor,
                     ),
                     SizedBox(width: 10,),
-                    Text("Senha: ${widget.pass!}", style: DefaultStyle.textStyle(
+                    Text("Senha: ${widget.pass!}",
+                      overflow: TextOverflow.ellipsis,
+                      style: DefaultStyle.textStyle(
                     color: DefaultColors.secondaryColor,
                     fontWeight: FontWeight.w700,
                     size: 18
@@ -126,7 +160,7 @@ class _Password extends State<Password> {
             ),
             ),
         ),
-        SizedBox(height: 25,),
+        SizedBox(height: 24,),
         Card(
           elevation: 10,
           child: Padding(padding: EdgeInsets.all(15),
@@ -135,11 +169,13 @@ class _Password extends State<Password> {
           children: [
             Row(children: [
               Icon(
-                Icons.emoji_objects_sharp,
+                Icons.info_outlined,
                 color: DefaultColors.secondaryColor,
               ),
               SizedBox(width: 10,),
-              Text("Observação: ${widget.ob!}", style: DefaultStyle.textStyle(
+              Text("Observação: ${widget.ob!}",
+                overflow: TextOverflow.ellipsis,
+                style: DefaultStyle.textStyle(
                   color: DefaultColors.secondaryColor,
                   fontWeight: FontWeight.w700,
                   size: 18

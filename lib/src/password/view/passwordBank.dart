@@ -1,3 +1,4 @@
+import 'package:cofredesenha/models/BankModel.dart';
 import 'package:cofredesenha/models/SaveAccaunt.dart';
 import 'package:cofredesenha/src/home.dart';
 import 'package:cofredesenha/src/home/viewPassword.dart';
@@ -14,7 +15,8 @@ class PasswordBank extends StatefulWidget {
   String? accaunt;
   String? password;
   int? id;
-  PasswordBank({Key? key,this.bank, this.agency, this.accaunt, this.password, this.id}) : super(key: key);
+  BankModel? model;
+  PasswordBank({Key? key,this.bank, this.agency, this.accaunt, this.password, this.id, this.model}) : super(key: key);
 
   @override
   _PasswordBank createState() => _PasswordBank();
@@ -39,32 +41,32 @@ class _PasswordBank extends State<PasswordBank> {
         backgroundColor: DefaultColors.secondaryColor,
         onPressed: () {
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => EditBank(bank:widget.bank ,password: widget.password,agency: widget.agency, accaunt: widget.accaunt,id: widget.id,)));},
+              MaterialPageRoute(builder: (context) => EditBank(bank:widget.bank ,password: widget.password,agency: widget.agency, accaunt: widget.accaunt,id: widget.id,model: widget.model,)));},
         child: Icon(Icons.edit,color: Colors.white,),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: DefaultColors.secondaryColor,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: Colors.white,
             size: 20,
           ),
           onPressed: () => Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => Home())),
         ),
-        title: Text("Senhas",
+        title: Text("Bancárias",
             style: DefaultStyle.textStyle(
                 size: 24,
                 fontWeight: FontWeight.w700,
-                color: DefaultColors.darkColor2)),
+                color: Colors.white)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
             child: Column(
               children: [
-                formBill(),
+                Padding(padding: EdgeInsets.symmetric(horizontal: 15),child: formBill(),),
               ],
             )
         ),
@@ -84,22 +86,26 @@ class _PasswordBank extends State<PasswordBank> {
                 Row(
                   children: [
                     Icon(
-                      Icons.local_hotel_sharp,
+                      Icons.monetization_on_outlined,
                       color: DefaultColors.secondaryColor,
                     ),
                     SizedBox(width: 10,),
-                    Text("Banco: ${widget.bank!}", style: DefaultStyle.textStyle(
+                    Text("Banco: ${widget.bank!}",
+                      overflow: TextOverflow.ellipsis,
+                      style: DefaultStyle.textStyle(
                         color: DefaultColors.secondaryColor,
                         fontWeight: FontWeight.w700,
                         size: 18
                     ),),
                   ],
+
                 ),
+                IconButton(onPressed: (){_copyBank();}, icon: Icon(Icons.copy)),
               ],
             ),
           ),
         ),
-        SizedBox(height: 25,),
+        SizedBox(height: 24,),
         Card(
           elevation: 10,
           child: Padding(padding: EdgeInsets.all(15),
@@ -112,42 +118,50 @@ class _PasswordBank extends State<PasswordBank> {
                     color: DefaultColors.secondaryColor,
                   ),
                   SizedBox(width: 10,),
-                  Text("Agência: ${widget.agency!}", style: DefaultStyle.textStyle(
-                      color: DefaultColors.secondaryColor,
-                      fontWeight: FontWeight.w700,
-                      size: 18
-                  ),),
-                ],)
-
-              ],
-            )
-            ,),
-        ),
-        SizedBox(height: 25,),
-        Card(
-          elevation: 10,
-          child: Padding(padding: EdgeInsets.all(15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(children: [
-                  Icon(
-                    Icons.emoji_objects_sharp,
-                    color: DefaultColors.secondaryColor,
-                  ),
-                  SizedBox(width: 10,),
-                  Text("Conta: ${widget.accaunt!}", style: DefaultStyle.textStyle(
+                  Text("Agência: ${widget.agency!}",
+                    overflow: TextOverflow.ellipsis,
+                    style: DefaultStyle.textStyle(
                       color: DefaultColors.secondaryColor,
                       fontWeight: FontWeight.w700,
                       size: 18
                   ),),
                 ],),
+                IconButton(onPressed: (){_copyAgency();}, icon: Icon(Icons.copy)),
+
+              ],
+
+            )
+
+            ,),
+        ),
+        SizedBox(height: 24,),
+        Card(
+          elevation: 10,
+          child: Padding(padding: EdgeInsets.all(15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(children: [
+                  Icon(
+                    Icons.emoji_objects_sharp,
+                    color: DefaultColors.secondaryColor,
+                  ),
+                  SizedBox(width: 10,),
+                  Text("Conta: ${widget.accaunt!}",
+                    overflow: TextOverflow.ellipsis,
+                    style: DefaultStyle.textStyle(
+                      color: DefaultColors.secondaryColor,
+                      fontWeight: FontWeight.w700,
+                      size: 18
+                  ),),
+                ],),
+                IconButton(onPressed: (){_copyAccaunt();}, icon: Icon(Icons.copy)),
 
               ],
             )
             ,),
         ),
-        SizedBox(height: 25,),
+        SizedBox(height: 24,),
         Card(
           elevation: 10,
           child: Padding(padding: EdgeInsets.all(15),
@@ -161,7 +175,9 @@ class _PasswordBank extends State<PasswordBank> {
                         color: DefaultColors.secondaryColor,
                       ),
                       SizedBox(width: 10,),
-                      Text("Senha: ${widget.password!}", style: DefaultStyle.textStyle(
+                      Text("Senha: ${widget.password!}",
+                        overflow: TextOverflow.ellipsis,
+                        style: DefaultStyle.textStyle(
                           color: DefaultColors.secondaryColor,
                           fontWeight: FontWeight.w700,
                           size: 18
@@ -181,4 +197,20 @@ class _PasswordBank extends State<PasswordBank> {
         print('copied'));
     DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false);
   }
+  _copyBank(){
+    FlutterClipboard.copy(widget.bank!).then(( value ) =>
+        print('copied'));
+    DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false);
+  }
+  _copyAgency(){
+    FlutterClipboard.copy(widget.bank!).then(( value ) =>
+        print('copied'));
+    DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false);
+  }
+  _copyAccaunt(){
+    FlutterClipboard.copy(widget.bank!).then(( value ) =>
+        print('copied'));
+    DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false);
+  }
+
 }

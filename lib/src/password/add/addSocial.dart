@@ -34,6 +34,7 @@ class _AddSocial extends State<AddSocial> {
   SocialModel save = SocialModel();
   TextEditingController namecontroller = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController usernamecontroller = TextEditingController();
   TextEditingController observationController = TextEditingController();
 
   @override
@@ -42,11 +43,11 @@ class _AddSocial extends State<AddSocial> {
       bottomNavigationBar: _button(),
 
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: DefaultColors.secondaryColor,
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: Colors.white,
               size: 20,
             ),
             onPressed: () {
@@ -55,11 +56,11 @@ class _AddSocial extends State<AddSocial> {
                   context, MaterialPageRoute(builder: (context) => Home()));
             }
         ),
-        title: Text("Adicione sua senha",
+        title: Text("Adicione seus dados",
             style: DefaultStyle.textStyle(
                 size: 24,
                 fontWeight: FontWeight.w700,
-                color: DefaultColors.darkColor2)),
+                color: Colors.white)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -67,7 +68,7 @@ class _AddSocial extends State<AddSocial> {
               key: _formKey,
               child: Column(
                 children: [
-                  formBill(),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 15),child: formBill(),)
                 ],
               ),
             )
@@ -96,14 +97,43 @@ class _AddSocial extends State<AddSocial> {
             color: Colors.black,
           ),
           decoration: InputDecoration(
-            labelText: "Local",
+            labelText: "Plataforma",
             labelStyle: DefaultStyle.textStyle(
                 size: 20,
                 color: DefaultColors.darkColor2,
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
+          ),
+        ),
+        SizedBox(
+          height: 24,
+        ),
+        TextFormField(
+          onSaved: (value){
+            save.type = usernamecontroller.text;
+          },
+          controller: usernamecontroller,
+          keyboardType: TextInputType.text,
+          // inputFormatters: [mask],
+          validator: (String? name) {
+            if (name!.isEmpty) {
+              return "Campo obrigatório";
+            }
+          },
+          style: TextStyle(
+            color: Colors.black,
+          ),
+          decoration: InputDecoration(
+            labelText: "Usuário",
+            labelStyle: DefaultStyle.textStyle(
+                size: 20,
+                color: DefaultColors.darkColor2,
+                fontWeight: FontWeight.w400),
+            enabledBorder: UnderlineInputBorder(
+                borderSide:
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         SizedBox(
@@ -132,7 +162,7 @@ class _AddSocial extends State<AddSocial> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         // SizedBox(
@@ -184,7 +214,7 @@ class _AddSocial extends State<AddSocial> {
     try{
       if (!_formKey.currentState!.validate()) return;
       _formKey.currentState!.save();
-      save.type ="Default";
+      // save.type ="Default";
       var auth = await _dbHelper.saveSocial(save);
       print(save.toJson());
       Navigator.pushReplacement(

@@ -34,17 +34,18 @@ class _AddPassword extends State<AddPassword> {
   TextEditingController localController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController observationController = TextEditingController();
+  TextEditingController userController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: _button(),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: DefaultColors.secondaryColor,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: Colors.white,
             size: 20,
           ),
           onPressed: () {
@@ -53,11 +54,11 @@ class _AddPassword extends State<AddPassword> {
                 context, MaterialPageRoute(builder: (context) => Home()));
           }
         ),
-        title: Text("Adicione sua senha",
+        title: Text("Adicione seus dados",
             style: DefaultStyle.textStyle(
                 size: 24,
                 fontWeight: FontWeight.w700,
-                color: DefaultColors.darkColor2)),
+                color: Colors.white)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -65,7 +66,7 @@ class _AddPassword extends State<AddPassword> {
               key: _formKey,
               child: Column(
                 children: [
-                  formBill(),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 15),child: formBill()),
                 ],
               ),
             )
@@ -94,16 +95,44 @@ class _AddPassword extends State<AddPassword> {
             color: Colors.black,
           ),
           decoration: InputDecoration(
-            labelText: "Local",
+            labelText: "Plataforma",
             labelStyle: DefaultStyle.textStyle(
                 size: 20,
                 color: DefaultColors.darkColor2,
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
+        // SizedBox(
+        //   height: 24,
+        // ),
+        // TextFormField(
+        //   onSaved: (value){
+        //     save.username = userController.text;
+        //   },
+        //   controller: userController,
+        //   keyboardType: TextInputType.text,
+        //   validator: (String? name) {
+        //     if (name!.isEmpty) {
+        //       return "Campo obrigatório";
+        //     }
+        //   },
+        //   style: TextStyle(
+        //     color: Colors.black,
+        //   ),
+        //   decoration: InputDecoration(
+        //     labelText: "Usuário",
+        //     labelStyle: DefaultStyle.textStyle(
+        //         size: 20,
+        //         color: DefaultColors.darkColor2,
+        //         fontWeight: FontWeight.w400),
+        //     enabledBorder: UnderlineInputBorder(
+        //         borderSide:
+        //         BorderSide(color: DefaultColors.secondaryColor)),
+        //   ),
+        // ),
         SizedBox(
           height: 24,
         ),
@@ -130,40 +159,77 @@ class _AddPassword extends State<AddPassword> {
                 fontWeight: FontWeight.w400),
             enabledBorder: UnderlineInputBorder(
                 borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
+                BorderSide(color: DefaultColors.secondaryColor)),
           ),
         ),
         SizedBox(
           height: 24,
         ),
-        TextFormField(
-          onSaved: (value){
-            save.observation = observationController.text;
-          },
-          controller: observationController,
-          keyboardType: TextInputType.text,
-          // validator: (String? name) {
-          //   if (name!.isEmpty) {
-          //     return "Campo obrigatório";
-          //   }
-          // },
-          style: TextStyle(
-            color: Colors.black,
-          ),
-          decoration: InputDecoration(
-            labelText: "Observação",
-            labelStyle: DefaultStyle.textStyle(
+        SizedBox(
+          height: 120,
+          child: Card(
+              elevation: 10,
+              color: Colors.white, //Color.fromRGBO(241, 241, 243, 1),
+              child: Container(
+                //height: 200,
+                // padding: EdgeInsets.all(10),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4),
+                                topRight: Radius.circular(4)),
+                            // color: Color.fromRGBO(241, 241, 243, 1),
+                          ),
+                          //Color.fromRGBO(241, 241, 243, 1),
+                          padding:
+                          EdgeInsets.all(10), //Color.fromRGBO(241, 241, 243, 1),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Observações",
+                            style: DefaultStyle.textStyle(
                 size: 20,
                 color: DefaultColors.darkColor2,
                 fontWeight: FontWeight.w400),
-            enabledBorder: UnderlineInputBorder(
-                borderSide:
-                BorderSide(color: Color.fromRGBO(218, 218, 221, 1))),
-          ),
+                          ),
+                        ),Padding(padding: EdgeInsets.all(10),child:                         TextFormField(
+                          onSaved: (value){
+                            save.observation = observationController.text;
+                          },
+                          controller: observationController,
+                          keyboardType: TextInputType.text,
+                          // validator: (String? name) {
+                          //   if (name!.isEmpty) {
+                          //     return "Campo obrigatório";
+                          //   }
+                          // },
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                          decoration: InputDecoration(
+                            // labelText: "Escreva aqui suas observações",
+                            // labelStyle: DefaultStyle.textStyle(
+                            //     size: 14,
+                            //     color: DefaultColors.darkColor2,
+                            //     fontWeight: FontWeight.w400),
+
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                BorderSide(
+                                    color: Colors.white
+                                    // color: DefaultColors.secondaryColor
+                                ),
+                                borderRadius:BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10),topLeft: Radius.circular(10),topRight: Radius.circular(10)) ),
+                          ),
+                        ),),
+
+                      ])),
+            ),
         ),
-        SizedBox(
-          height: 24,
-        ),
+        
       ],
     );
   }
