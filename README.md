@@ -13,7 +13,7 @@ Dart - 2.17.0
 Gabriel Doratiotto Menoi - Dessenvolvedor Mobile
 Gabriel Soares Mielo - PO e UX/UI 
 Tiago Santos - UX/UI e testes de software
-Pedro Henrique Cordeiro - Testes de software
+
 ```
 
 ## Link do protótipo
