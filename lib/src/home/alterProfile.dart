@@ -291,11 +291,10 @@ class _EditProfile extends State<EditProfile> {
 
   go() async{
     try{
-      String? teste;
       if (!_formKey.currentState!.validate()) return;
       _formKey.currentState!.save();
 
-      var auth = await _dbHelper.editCliente(save);
+      var zauth = await _dbHelper.editCliente(save);
       print(save.toJson());
       // Navigator.pop(context);
       // Navigator.pop(context);

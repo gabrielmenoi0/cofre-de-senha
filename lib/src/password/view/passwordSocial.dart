@@ -185,7 +185,7 @@ class _PasswordSocial extends State<PasswordSocial> {
     DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false);
   }
     _copyName(){
-    FlutterClipboard.copy(widget.nome!).then(( value ) =>
+    FlutterClipboard.copy(widget.type!).then(( value ) =>
         print('copied'));
     DefaultScreenUtils.onMessage(context: context, message: "Nome copiada para sua Área de transferência!", isError: false);
   }

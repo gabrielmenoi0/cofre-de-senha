@@ -16,7 +16,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home>{
 
   int segmentedControlValue = 0;
-  int _selectedIndex = 0;
   int _pageIndex = 0;
   late PageController _pageController;
 
@@ -36,15 +35,15 @@ class _HomeState extends State<Home>{
       bottomNavigationBar: ConvexAppBar(
         items: [
           TabItem(
-              icon: Icon(Icons.key_off,color: _pageIndex != 0
+              icon: Icon(Icons.home_outlined,color: _pageIndex != 0
                   ? DefaultColors.darkColor0
                   : DefaultColors.primaryColor),
-              title: 'Senhas'),
+              title: 'Home'),
           TabItem(
               icon: Icon(Icons.add,color: _pageIndex != 1  ? Colors.white : Colors.white),
           ),
           TabItem(
-              icon: Icon(Icons.person,color: _pageIndex != 2
+              icon: Icon(Icons.person_outline,color: _pageIndex != 2
                   ? DefaultColors.darkColor0
                   : DefaultColors.primaryColor),
               title: 'Perfil'),
@@ -72,15 +71,6 @@ class _HomeState extends State<Home>{
 
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-  static const List<Widget> _widgetOptions = <Widget>[
-    ViewPassword(),
-    ProfileView(),
-  ];
 
   void onPageChanged(int page) {
     setState(() {

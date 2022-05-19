@@ -203,12 +203,12 @@ class _PasswordBank extends State<PasswordBank> {
     DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false);
   }
   _copyAgency(){
-    FlutterClipboard.copy(widget.bank!).then(( value ) =>
+    FlutterClipboard.copy(widget.agency!).then(( value ) =>
         print('copied'));
     DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false);
   }
   _copyAccaunt(){
-    FlutterClipboard.copy(widget.bank!).then(( value ) =>
+    FlutterClipboard.copy(widget.accaunt!).then(( value ) =>
         print('copied'));
     DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false);
   }

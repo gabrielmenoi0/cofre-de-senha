@@ -32,18 +32,46 @@ class _PasswordGeneratorState extends State<PasswordGenerator> {
           builder: (context) {
             return AlertDialog(
 
-              content: Text("Para gerar senha é necessário que pelo menos uma opção esteja selecionada."),
+              content: Text("Para gerar senha é necessário que pelo menos uma opção esteja selecionada!.",style: TextStyle(color: DefaultColors.darkColor2,fontSize: 18, fontWeight: FontWeight.bold),),
               actions: <Widget>[
-                FlatButton(
-                  child: Text("OK"),
-                  onPressed: () => Navigator.pop(context),
-                )
+                DefaultButton(context: context, title: "Fechar",callback: ()=> Navigator.pop(context),)
               ],
 
             );
           }
       );
-    } else {
+    }
+    else if(int.parse(_controllerTamanho.text) <= 0){
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+
+              content: Text("Para gerar senha é necessário que o tamanho seja maior que 0!.",style: TextStyle(color: DefaultColors.darkColor2,fontSize: 18, fontWeight: FontWeight.bold),),
+              actions: <Widget>[
+                DefaultButton(context: context, title: "Fechar",callback: ()=> Navigator.pop(context),)
+              ],
+
+            );
+          }
+      );
+    }
+    else if(int.parse(_controllerTamanho.text) <= 0 && letrasMai == false && letrasMin == false && numeros == false && simbolos == false){
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+
+              content: Text("Para gerar senha é necessário que pelo menos uma opção esteja selecionada e o tamanho seja maior que 0!",style: TextStyle(color: DefaultColors.darkColor2,fontSize: 18, fontWeight: FontWeight.bold),),
+              actions: <Widget>[
+                DefaultButton(context: context, title: "Fechar",callback: ()=> Navigator.pop(context),)
+              ],
+
+            );
+          }
+      );
+    }
+    else {
 
       String letrasMaiusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
       String letrasMinusculas = "abcdefghijklmnopqrstuvwxyz";

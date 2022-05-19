@@ -166,7 +166,7 @@ class _AddPassword extends State<AddPassword> {
           height: 24,
         ),
         SizedBox(
-          height: 120,
+          height: 150,
           child: Card(
               elevation: 10,
               color: Colors.white, //Color.fromRGBO(241, 241, 243, 1),
@@ -201,11 +201,11 @@ class _AddPassword extends State<AddPassword> {
                           },
                           controller: observationController,
                           keyboardType: TextInputType.text,
-                          // validator: (String? name) {
-                          //   if (name!.isEmpty) {
-                          //     return "Campo obrigatório";
-                          //   }
-                          // },
+                          validator: (String? name) {
+                            if (name!.isEmpty) {
+                              return "Campo obrigatório";
+                            }
+                          },
                           style: TextStyle(
                             color: Colors.black,
                           ),

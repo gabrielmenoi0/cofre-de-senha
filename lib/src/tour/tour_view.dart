@@ -95,23 +95,23 @@ class _TourState extends State<Tour> {
           children: const [
             PageRegister(
               image: DefaultAssets.tour1,
-              text: "Com o app da TÁ PAGO o pagamento é ainda mais simples, prático e seguro!",
+              text: "",
             ),
             PageRegister(
               image: DefaultAssets.tour2,
-              text: "Será exibido em formato de carrosel todos o seus benefícios, basta escolher um ;)",
+              text: "",
             ),
             PageRegister(
               image: DefaultAssets.tour3,
-              text: "Você também pode clicar no botão pagar no menu inferior e depois escolher o benefício na próxima tela.",
+              text: "",
             ),
             PageRegister(
               image: DefaultAssets.tour4,
-              text: "Para fazer pagamento digite o valor da compra e clique em gerar senha :)",
+              text: "",
             ),
             PageRegister(
               image: DefaultAssets.tour5,
-              text: "Agora informe a senha ou exiba o QR Code para finalizar o pagamento!",
+              text: "",
             ),
 
           ]

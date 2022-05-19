@@ -100,8 +100,12 @@ class _Password extends State<Password> {
                         fontWeight: FontWeight.w700,
                         size: 18
                     ),),
+
                   ],
+
                 ),
+                IconButton(onPressed: (){_copyPlataform();}, icon: Icon(Icons.copy)),
+
               ],
             ),
             ),
@@ -180,10 +184,13 @@ class _Password extends State<Password> {
                   fontWeight: FontWeight.w700,
                   size: 18
               ),),
-            ],)
+            ],),
+            IconButton(onPressed: (){_copyobservation();}, icon: Icon(Icons.copy)),
 
           ],
+
           )
+
             ,),
         ),
       ],
@@ -192,6 +199,16 @@ class _Password extends State<Password> {
 
   _copy(){
     FlutterClipboard.copy(widget.pass!).then(( value ) =>
+        print('copied'));
+    DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false);
+  }
+  _copyPlataform(){
+    FlutterClipboard.copy(widget.local!).then(( value ) =>
+        print('copied'));
+    DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false);
+  }
+  _copyobservation(){
+    FlutterClipboard.copy(widget.ob!).then(( value ) =>
         print('copied'));
     DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false);
   }

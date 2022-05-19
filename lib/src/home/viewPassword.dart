@@ -108,32 +108,9 @@ class _ViewPassword extends State<ViewPassword> {
       ),
     );
   }
-  _loadData() {
-    return FutureBuilder<Cliente?>(
-      future: _dbHelper.getCustomer(),
-      builder: (context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return DefaultScreenUtils.onLoading();
-        }
 
-        if (snapshot.hasError) {
-          return const Text("Houve um erro ao encontrar dados!");
-        }
 
-        if (!snapshot.hasData) {
-          return const Text("Nenhuma informação encontrada, verifique sua conexão de internet.");
-        }
 
-        Cliente? item = snapshot.data;
-
-        return _scaffold(item!);
-      },
-    );
-  }
-
-  _scaffold(Cliente userModel) {
-    return ;
-  }
   social(){
     return Column(
       children: [
@@ -157,7 +134,7 @@ class _ViewPassword extends State<ViewPassword> {
                 child: EmpryRefund(),
               );
             }
-            
+
             searchResultSocial.clear();
 
             if(itemsSocial.isEmpty && _textControllerSocial.text.isEmpty){
@@ -174,6 +151,7 @@ class _ViewPassword extends State<ViewPassword> {
       ],
     );
   }
+
   bank(){
     return Column(
       children: [
