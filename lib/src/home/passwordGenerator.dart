@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class PasswordGenerator extends StatefulWidget {
 
@@ -18,7 +19,7 @@ class _PasswordGeneratorState extends State<PasswordGenerator> {
   TextEditingController _controllerTamanho = TextEditingController(text: "8");
 
   String senha = "";
-
+  var mask = MaskTextInputFormatter(mask: "##");
   bool letrasMaiusculas = true;
   bool letrasMinusculas = true;
   bool numeros = true;
@@ -202,6 +203,7 @@ class _PasswordGeneratorState extends State<PasswordGenerator> {
                         Container(
                           width: MediaQuery.of(context).size.width / 6,
                           child: TextField(
+                            inputFormatters: [mask],
                             controller: _controllerTamanho,
                             keyboardType: TextInputType.number,
                             style: TextStyle(fontSize: 18),
