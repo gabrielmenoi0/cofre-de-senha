@@ -76,12 +76,10 @@ class _SelectType extends State<SelectType> {
   }
   cardOption({required String title,required Function action}) {
     return Card(
-      shape:StadiumBorder(
-    side: BorderSide(
-      style: BorderStyle.solid,
-    color: DefaultColors.primaryColor,
-      width: 2.0,
-    ),),
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: DefaultColors.secondaryColor, width: 2),
+        borderRadius: BorderRadius.circular(10),
+      ),
       elevation: 10,
       margin: EdgeInsets.all(20),
       child: Column(

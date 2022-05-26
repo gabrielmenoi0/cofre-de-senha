@@ -82,6 +82,10 @@ class _ProfileViewState extends State<ProfileView> {
     return Column(
       children: [
         Card(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: DefaultColors.secondaryColor, width: 2),
+            borderRadius: BorderRadius.circular(10),
+          ),
           elevation: 10,
           color: Colors.white,
           child: ListTile(
@@ -105,6 +109,10 @@ class _ProfileViewState extends State<ProfileView> {
         SizedBox(height: 10,),
         Card(
           elevation: 10,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: DefaultColors.secondaryColor, width: 2),
+            borderRadius: BorderRadius.circular(10),
+          ),
           color: Colors.white,
           child: ListTile(
               leading:Icon(Icons.key_outlined,
@@ -125,6 +133,10 @@ class _ProfileViewState extends State<ProfileView> {
 
         SizedBox(height: 10,),
         Card(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: DefaultColors.secondaryColor, width: 2),
+            borderRadius: BorderRadius.circular(10),
+          ),
           elevation: 10,
           color: Colors.white,
           child: ListTile(

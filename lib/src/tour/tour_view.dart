@@ -95,23 +95,23 @@ class _TourState extends State<Tour> {
           children: const [
             PageRegister(
               image: DefaultAssets.tour1,
-              text: "",
+              text: "Essa é sua barra de navegação, onde você pode alternar entre a tela inicial, o cadastro de contas e o seu perfil, respectivamente.",
             ),
             PageRegister(
               image: DefaultAssets.tour2,
-              text: "",
+              text: "Aqui que você seleciona o tipo de conta que você está cadastrando.",
             ),
             PageRegister(
               image: DefaultAssets.tour3,
-              text: "",
+              text: "Essa é sua tela de contas, onde você pode filtrar por contas de redes sociais, bancárias e outras, além de poder também pesquisar por uma conta específica.",
             ),
             PageRegister(
               image: DefaultAssets.tour4,
-              text: "",
+              text: "O exemplo acima mostra como ficarão listadas as suas contas de redes sociais.",
             ),
             PageRegister(
               image: DefaultAssets.tour5,
-              text: "",
+              text: "Atenção! Não desinstale ou limpe dos dados do aplicativo, pois você perderá as suas senhas!",
             ),
 
           ]

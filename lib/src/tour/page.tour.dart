@@ -52,7 +52,7 @@ class _PageRegisterState extends State<PageRegister> {
               //   height: 20,
               // ),
 
-              Image.asset(widget.image!,height: 250),
+              Image.asset(widget.image!,height: 300),
               SizedBox(height: 10,),
               Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),

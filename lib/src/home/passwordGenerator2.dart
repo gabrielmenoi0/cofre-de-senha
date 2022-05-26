@@ -261,7 +261,7 @@ class _PasswordGenerator2State extends State<PasswordGenerator2> {
                             ),
                             onPressed: (){
                               Clipboard.setData(ClipboardData(text: senha));
-                              senha.isNotEmpty ? DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!", isError: false): "";
+                              senha.isNotEmpty ? DefaultScreenUtils.onMessage(context: context, message: "Senha copiada para sua Área de transferência!\n", isError: false): "";
 
                               // _showInfoFlushbarHelper(context);
                             },

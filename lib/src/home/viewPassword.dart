@@ -254,6 +254,7 @@ class _ViewPassword extends State<ViewPassword> {
     itemsSocial.clear();
     itemsSocial.addAll(list);
 
+
     setState(() {});
   }
   searchSocial() {
@@ -591,16 +592,14 @@ class _ViewPassword extends State<ViewPassword> {
   }
     return Container(
       height: 100,
-      margin: EdgeInsets.all(15),
+      margin: EdgeInsets.all(10),
       child: GestureDetector(
         onTap: ()=> tap(),
         child: Card(
-          shape:StadiumBorder(
-            side: BorderSide(
-              style: BorderStyle.solid,
-              color: DefaultColors.primaryColor,
-              width: 2.0,
-            ),),
+          shape: RoundedRectangleBorder(
+        side: BorderSide(color: DefaultColors.secondaryColor, width: 2),
+        borderRadius: BorderRadius.circular(10),
+      ),
           elevation: 10,
           child: Padding(padding: EdgeInsets.all(15),
             child: Column(
@@ -673,12 +672,10 @@ class _ViewPassword extends State<ViewPassword> {
       child: GestureDetector(
         onTap: ()=> tap(),
         child: Card(
-          shape:StadiumBorder(
-            side: BorderSide(
-              style: BorderStyle.solid,
-              color: DefaultColors.primaryColor,
-              width: 2.0,
-            ),),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: DefaultColors.secondaryColor, width: 2),
+            borderRadius: BorderRadius.circular(10),
+          ),
           elevation: 10,
           child: Padding(padding: EdgeInsets.all(15),
               child: Column(
@@ -743,12 +740,10 @@ class _ViewPassword extends State<ViewPassword> {
       child: GestureDetector(
         onTap: ()=> tap(),
         child: Card(
-          shape:StadiumBorder(
-            side: BorderSide(
-              style: BorderStyle.solid,
-              color: DefaultColors.primaryColor,
-              width: 2.0,
-            ),),
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: DefaultColors.secondaryColor, width: 2),
+            borderRadius: BorderRadius.circular(10),
+          ),
           elevation: 10,
           child: Padding(padding: EdgeInsets.all(15),
               child: Column(
