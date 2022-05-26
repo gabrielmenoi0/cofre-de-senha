@@ -1,6 +1,5 @@
 import 'package:cofredesenha/data/database.dart';
 import 'package:cofredesenha/models/cliente.dart';
-import 'package:cofredesenha/models/BankModel.dart';
 import 'package:cofredesenha/src/login.dart';
 import 'package:cofredesenha/src/message.view.dart';
 import 'package:cofredesenha/src/home/viewPassword.dart';
@@ -42,7 +41,6 @@ class _MyAppState extends State<MyApp> {
     Intl.defaultLocale = 'pt_BR';
     initializeDateFormatting('pt_BR');
     return MaterialApp(
-
         debugShowCheckedModeBanner: false,
         // theme: DefaultTheme.themeData,
         home: FutureBuilder<Cliente?>(

@@ -6,7 +6,7 @@ class SocialModel {
   String? password;
   String? type;
   String? ob;
-  Cliente? cliente;
+  // Cliente? cliente;
 
   SocialModel(
       {this.id,
@@ -14,7 +14,7 @@ class SocialModel {
         this.password,
         this.type,
         this.ob,
-        this.cliente,
+        // this.cliente,
       });
 
   SocialModel.fromJson(Map<String, dynamic> json) {
@@ -22,7 +22,7 @@ class SocialModel {
     name = json['name'];
     password = json['passwordSocial'];
     type = json['type'];
-    cliente= json['cliente'];
+    // cliente= json['cliente'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,7 +31,7 @@ class SocialModel {
     data['name'] = this.name;
     data['passwordSocial'] = this.password;
     data['type'] = this.type;
-    data['cliente'] = this.cliente;
+    // data['cliente'] = this.cliente;
     return data;
   }
 }

@@ -1,7 +1,6 @@
 import 'package:cofredesenha/data/database.dart';
-import 'package:cofredesenha/models/SaveAccaunt.dart';
 import 'package:cofredesenha/models/passwordModel.dart';
-import 'package:cofredesenha/models/socialModel.dart';
+import 'package:cofredesenha/models/password/socialModel.dart';
 import 'package:cofredesenha/src/home.dart';
 import 'package:cofredesenha/utils/button.dart';
 import 'package:cofredesenha/utils/screenUtils.dart';
@@ -41,7 +40,6 @@ class _AddSocial extends State<AddSocial> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: _button(),
-
       appBar: AppBar(
         backgroundColor: DefaultColors.secondaryColor,
         leading: IconButton(
@@ -51,9 +49,8 @@ class _AddSocial extends State<AddSocial> {
               size: 20,
             ),
             onPressed: () {
-              // Navigator.pop(context);
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Home()));
+              Navigator.pop(context);
+
             }
         ),
         title: Text("Adicione seus dados",

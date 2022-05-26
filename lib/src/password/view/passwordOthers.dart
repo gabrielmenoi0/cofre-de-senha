@@ -1,4 +1,4 @@
-import 'package:cofredesenha/models/SaveAccaunt.dart';
+import 'package:cofredesenha/models/password/SaveAccaunt.dart';
 import 'package:cofredesenha/src/home.dart';
 import 'package:cofredesenha/src/home/viewPassword.dart';
 import 'package:cofredesenha/src/password/edit/editOthers.dart';
@@ -56,8 +56,7 @@ class _Password extends State<Password> {
             color: Colors.white,
             size: 20,
           ),
-          onPressed: () => Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Home())),
+          onPressed: () => Navigator.pop(context),
         ),
         title: Text("Outras senhas",
             style: DefaultStyle.textStyle(

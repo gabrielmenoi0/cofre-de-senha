@@ -1,29 +1,38 @@
 import 'package:cofredesenha/models/cliente.dart';
 
-class Passwords {
+class SaveAccountModel {
   int? id;
   String? local;
-  String? senha;
+  String? password;
   String? observation;
-  Cliente? cliente;
+  // Cliente? cliente;
 
-  Passwords({this.local, this.senha, this.observation});
 
-  Passwords.fromJson(Map<String, dynamic> json) {
+  SaveAccountModel(
+      {this.id,
+        this.local,
+        this.password,
+        this.observation,
+        // this.cliente,
+      });
+
+  SaveAccountModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     local = json['local'];
-    senha = json['senha'];
+    password = json['password'];
     observation = json['observation'];
-    cliente = json['cliente'];
+    // cliente = json['cliente'];
+
+
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['local'] = this.local;
-    data['senha'] = this.senha;
+    data['password'] = this.password;
     data['observation'] = this.observation;
-    data['cliente'] = this.cliente;
+    // data['cliente'] = this.cliente;
     return data;
   }
 }

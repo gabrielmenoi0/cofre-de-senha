@@ -1,12 +1,9 @@
 import 'package:cofredesenha/data/database.dart';
-import 'package:cofredesenha/models/SaveAccaunt.dart';
+import 'package:cofredesenha/models/cliente.dart';
 import 'package:cofredesenha/models/passwordModel.dart';
-import 'package:cofredesenha/models/socialModel.dart';
+import 'package:cofredesenha/models/password/socialModel.dart';
 import 'package:cofredesenha/src/home.dart';
-import 'package:cofredesenha/src/home/passwordGenerator.dart';
-import 'package:cofredesenha/src/home/passwordGenerator2.dart';
 import 'package:cofredesenha/src/home/passwordGenerator3.dart';
-import 'package:cofredesenha/src/home/viewPassword.dart';
 import 'package:cofredesenha/utils/button.dart';
 import 'package:cofredesenha/utils/screenUtils.dart';
 import 'package:cofredesenha/utils/styles.dart';
@@ -37,6 +34,7 @@ class _EditSocial extends State<EditSocial> {
     usernamecontroller.text = widget.type!;
     // observationController.text = widget.ob!;
     save.id = widget.id!;
+    getProfile();
     super.initState();
   }
 
@@ -44,11 +42,14 @@ class _EditSocial extends State<EditSocial> {
   void dispose() {
     super.dispose();
   }
+
   final DatabaseProvider _dbHelper = DatabaseProvider.db;
   String data = "";
   List<Passwords> info = [];
   final _formKey = GlobalKey<FormState>();
   SocialModel save = SocialModel();
+  Cliente client = Cliente();
+  Cliente? cliente;
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController observationController = TextEditingController();
@@ -69,9 +70,9 @@ class _EditSocial extends State<EditSocial> {
               size: 20,
             ),
             onPressed: (){
-              // Navigator.pop(context);
-              // Navigator.pop(context);
-              Navigator.pushReplacement(
+              Navigator.pop(context);
+              Navigator.pop(context);
+              Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Home()));
 
             }
@@ -105,9 +106,15 @@ class _EditSocial extends State<EditSocial> {
     callbottomSocial(SocialModel item){
     return bottomExludeSocial(context, item);
   }
+  getProfile() async{
+
+    cliente = await _dbHelper.getCustomer();
+    return cliente;
+  }
   exludeSocial(SocialModel item) async {
 
     var auth = await _dbHelper.deleteSocial(item);
+    Navigator.pop(context);
     Navigator.pop(context);
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
     
@@ -368,6 +375,7 @@ formBill() {
   }
 
   go() async{
+
     try{
       String? teste;
       if (!_formKey.currentState!.validate()) return;
@@ -375,10 +383,11 @@ formBill() {
       // save.type = "Default";
       print(save.toJson());
       save.id = save.id;
+      // save.cliente = null;
       var auth = await _dbHelper.editSocial(save);
 
       // Navigator.pop(context);
-      // Navigator.pop(context);
+      Navigator.pop(context);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => Home()));
 

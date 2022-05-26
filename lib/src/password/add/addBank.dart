@@ -1,6 +1,5 @@
 import 'package:cofredesenha/data/database.dart';
-import 'package:cofredesenha/models/BankModel.dart';
-import 'package:cofredesenha/models/SaveAccaunt.dart';
+import 'package:cofredesenha/models/password/BankModel.dart';
 import 'package:cofredesenha/models/passwordModel.dart';
 import 'package:cofredesenha/src/home.dart';
 import 'package:cofredesenha/utils/button.dart';
@@ -51,9 +50,8 @@ class _AddBank extends State<AddBank> {
               size: 20,
             ),
             onPressed: () {
-              // Navigator.pop(context);
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Home()));
+              Navigator.pop(context);
+
             }
         ),
         title: Text("Adicione seus dados",

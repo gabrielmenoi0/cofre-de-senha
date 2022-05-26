@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:cofredesenha/models/BankModel.dart';
-import 'package:cofredesenha/models/SaveAccaunt.dart';
 import 'package:cofredesenha/models/cliente.dart';
-import 'package:cofredesenha/models/socialModel.dart';
+import 'package:cofredesenha/models/password/BankModel.dart';
+import 'package:cofredesenha/models/password/SaveAccaunt.dart';
+import 'package:cofredesenha/models/password/socialModel.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';

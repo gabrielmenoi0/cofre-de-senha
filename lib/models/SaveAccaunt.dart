@@ -1,8 +1,11 @@
+import 'package:cofredesenha/models/cliente.dart';
+
 class SaveAccountModel {
   int? id;
   String? local;
   String? password;
   String? observation;
+  Cliente? cliente;
 
 
   SaveAccountModel(
@@ -10,6 +13,7 @@ class SaveAccountModel {
         this.local,
         this.password,
         this.observation,
+        this.cliente,
       });
 
   SaveAccountModel.fromJson(Map<String, dynamic> json) {
@@ -17,6 +21,7 @@ class SaveAccountModel {
     local = json['local'];
     password = json['password'];
     observation = json['observation'];
+    cliente = json['cliente'];
 
 
   }
@@ -27,6 +32,7 @@ class SaveAccountModel {
     data['local'] = this.local;
     data['password'] = this.password;
     data['observation'] = this.observation;
+    data['cliente'] = this.cliente;
     return data;
   }
 }

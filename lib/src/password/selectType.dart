@@ -66,13 +66,13 @@ class _SelectType extends State<SelectType> {
     );
   }
   social(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddSocial()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AddSocial()));
   }
   bank(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddBank()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AddBank()));
   }
   others(){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AddPassword()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AddPassword()));
   }
   cardOption({required String title,required Function action}) {
     return Card(

@@ -1,5 +1,5 @@
-import 'package:cofredesenha/models/BankModel.dart';
-import 'package:cofredesenha/models/SaveAccaunt.dart';
+
+import 'package:cofredesenha/models/password/BankModel.dart';
 import 'package:cofredesenha/src/home.dart';
 import 'package:cofredesenha/src/home/viewPassword.dart';
 import 'package:cofredesenha/src/password/edit/editBank.dart';
@@ -53,8 +53,7 @@ class _PasswordBank extends State<PasswordBank> {
             color: Colors.white,
             size: 20,
           ),
-          onPressed: () => Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Home())),
+          onPressed: () => Navigator.pop(context),
         ),
         title: Text("Bancárias",
             style: DefaultStyle.textStyle(

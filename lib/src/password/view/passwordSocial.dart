@@ -1,5 +1,4 @@
-import 'package:cofredesenha/models/SaveAccaunt.dart';
-import 'package:cofredesenha/models/socialModel.dart';
+import 'package:cofredesenha/models/password/socialModel.dart';
 import 'package:cofredesenha/src/home.dart';
 import 'package:cofredesenha/src/home/viewPassword.dart';
 import 'package:cofredesenha/src/password/edit/editSocial.dart';
@@ -53,8 +52,7 @@ class _PasswordSocial extends State<PasswordSocial> {
             color: Colors.white,
             size: 20,
           ),
-          onPressed: () => Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Home())),
+          onPressed: () => Navigator.pop(context),
         ),
         title: Text("Social",
             style: DefaultStyle.textStyle(

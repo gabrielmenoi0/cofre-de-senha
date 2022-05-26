@@ -7,7 +7,7 @@ class BankModel {
   String? account;
   String? password;
   String? type;
-  Cliente? cliente;
+  // Cliente? cliente;
 
   BankModel(
       {this.bank,
@@ -15,7 +15,7 @@ class BankModel {
         this.account,
         this.password,
         this.type,
-        this.cliente,
+        // this.cliente,
       });
 
   BankModel.fromJson(Map<String, dynamic> json) {
@@ -25,7 +25,7 @@ class BankModel {
     account = json['account'];
     password = json['bankpassword'];
     type = json['type'];
-    cliente = json['cliente'];
+    // cliente = json['cliente'];
 
   }
 
@@ -37,7 +37,7 @@ class BankModel {
     data['account'] = this.account;
     data['bankpassword'] = this.password;
     data['type'] = this.type;
-    data['cliente'] = this.cliente;
+    // data['cliente'] = this.cliente;
     return data;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:cofredesenha/data/database.dart';
-import 'package:cofredesenha/models/SaveAccaunt.dart';
+import 'package:cofredesenha/models/password/SaveAccaunt.dart';
 import 'package:cofredesenha/models/passwordModel.dart';
 import 'package:cofredesenha/src/home.dart';
 import 'package:cofredesenha/utils/button.dart';
@@ -49,9 +49,8 @@ class _AddPassword extends State<AddPassword> {
             size: 20,
           ),
           onPressed: () {
-            // Navigator.pop(context);
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Home()));
+            Navigator.pop(context);
+
           }
         ),
         title: Text("Adicione seus dados",

@@ -1,10 +1,8 @@
 import 'package:clipboard/clipboard.dart';
-import 'package:cofredesenha/data/cache/strings.dart';
 import 'package:cofredesenha/data/database.dart';
-import 'package:cofredesenha/models/BankModel.dart';
-import 'package:cofredesenha/models/SaveAccaunt.dart';
-import 'package:cofredesenha/models/cliente.dart';
-import 'package:cofredesenha/models/socialModel.dart';
+import 'package:cofredesenha/models/password/BankModel.dart';
+import 'package:cofredesenha/models/password/SaveAccaunt.dart';
+import 'package:cofredesenha/models/password/socialModel.dart';
 import 'package:cofredesenha/src/home/emptyrefund.dart';
 import 'package:cofredesenha/src/password/add/addOthers.dart';
 import 'package:cofredesenha/src/password/edit/editBank.dart';
@@ -584,7 +582,7 @@ class _ViewPassword extends State<ViewPassword> {
 
   _cardSocial(SocialModel item) {
     tap(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordSocial(nome:item.name ,password: item.password,ob: item.ob,type: item.type,id: item.id,model: item,)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordSocial(nome:item.name ,password: item.password,ob: item.ob,type: item.type,id: item.id,model: item,)));
     }
     _copySocial(){
     FlutterClipboard.copy(item.password!).then(( value ) =>
@@ -662,7 +660,7 @@ class _ViewPassword extends State<ViewPassword> {
 
   _cardBank(BankModel item) {
     tap(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PasswordBank(bank:item.bank ,password: item.password,agency: item.agency, accaunt: item.account,id: item.id,model: item,)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordBank(bank:item.bank ,password: item.password,agency: item.agency, accaunt: item.account,id: item.id,model: item,)));
     }
     _copyBank(){
       FlutterClipboard.copy(item.password!).then(( value ) =>
@@ -732,7 +730,7 @@ class _ViewPassword extends State<ViewPassword> {
   }
   _card(SaveAccountModel item) {
     tap(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Password(id: item.id,ob: item.observation,pass: item.password,local: item.local, model: item,)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Password(id: item.id,ob: item.observation,pass: item.password,local: item.local, model: item,)));
     }
     _copyOthers(){
       FlutterClipboard.copy(item.password!).then(( value ) =>
