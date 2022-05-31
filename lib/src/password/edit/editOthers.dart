@@ -42,6 +42,7 @@ class _EditPassword extends State<EditPassword> {
   }
   final DatabaseProvider _dbHelper = DatabaseProvider.db;
   String data = "";
+  String result = " ";
   List<Passwords> info = [];
   final _formKey = GlobalKey<FormState>();
   SaveAccountModel save = SaveAccountModel();
@@ -89,8 +90,7 @@ class _EditPassword extends State<EditPassword> {
                     height: 20,
                     // child: PasswordGenerator(),
                   ),
-                  DefaultButton(context: context, title: "Clique aqui para gerar uma senha",callback: ()=>  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => PasswordGenerator3())))
+                  DefaultButton(context: context, title: "Clique aqui para gerar uma senha",callback: _generate)
                 ],
               ),
             ),
@@ -388,6 +388,14 @@ class _EditPassword extends State<EditPassword> {
 
       ],
     );
+  }
+  _generate() async {
+    result = await  Navigator.push(
+        context, MaterialPageRoute(builder: (context) => PasswordGenerator3()));
+    passwordController.text = result;
+    setState(() {
+
+    });
   }
   _button() {
     return Padding(

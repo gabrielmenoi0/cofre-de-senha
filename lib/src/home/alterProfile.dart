@@ -49,7 +49,7 @@ class _EditProfile extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: _button(),
+      // bottomNavigationBar: _button(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
@@ -59,10 +59,11 @@ class _EditProfile extends State<EditProfile> {
               size: 20,
             ),
             onPressed: (){
+              bottomLogout(context);
               // Navigator.pop(context);
               // Navigator.pop(context);
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Home()));
+              // Navigator.pushReplacement(
+              //     context, MaterialPageRoute(builder: (context) => Home()));
 
             }
         ),
@@ -177,16 +178,16 @@ class _EditProfile extends State<EditProfile> {
       ],
     );
   }
-  _button() {
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: DefaultButton(
-        context: context,
-        title: "Alterar",
-        callback: ()=>bottomLogout(context),
-      ),
-    );
-  }
+  // _button() {
+  //   return Padding(
+  //     padding: EdgeInsets.all(10),
+  //     child: DefaultButton(
+  //       context: context,
+  //       title: "Alterar",
+  //       callback: ()=>bottomLogout(context),
+  //     ),
+  //   );
+  // }
   static Widget closeBottom(BuildContext context,
       {Color? iconColor = Colors.grey}) =>
       Container(
@@ -271,7 +272,12 @@ class _EditProfile extends State<EditProfile> {
                                 fillColor: DefaultColors.secondaryColor,
                                 context: context,
                                 title: "Não",
-                                callback: () => Navigator.pop(context),
+                                callback: (){
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.push(
+                                      context, MaterialPageRoute(builder: (context) => Home()));
+                                },
                               ),
                             )
                           ],

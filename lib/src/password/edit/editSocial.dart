@@ -3,6 +3,7 @@ import 'package:cofredesenha/models/cliente.dart';
 import 'package:cofredesenha/models/passwordModel.dart';
 import 'package:cofredesenha/models/password/socialModel.dart';
 import 'package:cofredesenha/src/home.dart';
+import 'package:cofredesenha/src/home/passwordGenerator2.dart';
 import 'package:cofredesenha/src/home/passwordGenerator3.dart';
 import 'package:cofredesenha/utils/button.dart';
 import 'package:cofredesenha/utils/screenUtils.dart';
@@ -42,7 +43,7 @@ class _EditSocial extends State<EditSocial> {
   void dispose() {
     super.dispose();
   }
-
+  String result = " ";
   final DatabaseProvider _dbHelper = DatabaseProvider.db;
   String data = "";
   List<Passwords> info = [];
@@ -94,14 +95,21 @@ class _EditSocial extends State<EditSocial> {
                     height: 20,
                     // child: PasswordGenerator(),
                   ),
-                  DefaultButton(context: context, title: "Clique aqui para gerar uma senha",callback: ()=>  Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => PasswordGenerator3())))
+                  DefaultButton(context: context, title: "Clique aqui para gerar uma senha",callback:  _generate )
                 ],
               ),
             )
         ),
       ),
     );
+  }
+  _generate() async {
+    result = await  Navigator.push(
+        context, MaterialPageRoute(builder: (context) => PasswordGenerator3()));
+    passwordController.text = result;
+    setState(() {
+
+    });
   }
     callbottomSocial(SocialModel item){
     return bottomExludeSocial(context, item);

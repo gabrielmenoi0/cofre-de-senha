@@ -43,6 +43,7 @@ class _EditBank extends State<EditBank> {
   void dispose() {
     super.dispose();
   }
+  String result = "";
   final DatabaseProvider _dbHelper = DatabaseProvider.db;
   String data = "";
   List<Passwords> info = [];
@@ -93,8 +94,7 @@ class _EditBank extends State<EditBank> {
                     height: 20,
                     // child: PasswordGenerator(),
                   ),
-                  DefaultButton(context: context, title: "Clique aqui para gerar uma senha",callback: ()=>  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => PasswordGenerator3())))
+                  DefaultButton(context: context, title: "Clique aqui para gerar uma senha",callback: _generate)
                 ],
               ),
             )
@@ -438,6 +438,14 @@ class _EditBank extends State<EditBank> {
         ),
       ],
     );
+  }
+  _generate() async {
+    result = await  Navigator.push(
+        context, MaterialPageRoute(builder: (context) => PasswordGenerator3()));
+    passwordController.text = result;
+    setState(() {
+
+    });
   }
   _button() {
     return Padding(

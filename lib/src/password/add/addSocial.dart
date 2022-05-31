@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cofredesenha/data/database.dart';
 import 'package:cofredesenha/models/passwordModel.dart';
 import 'package:cofredesenha/models/password/socialModel.dart';
@@ -6,6 +8,7 @@ import 'package:cofredesenha/utils/button.dart';
 import 'package:cofredesenha/utils/screenUtils.dart';
 import 'package:cofredesenha/utils/styles.dart';
 import 'package:cofredesenha/utils/textStyle.dart';
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
 class AddSocial extends StatefulWidget {
@@ -138,6 +141,7 @@ class _AddSocial extends State<AddSocial> {
         ),
         TextFormField(
           onSaved: (value){
+            // save.password = md5.convert(utf8.encode(value!)).toString();
             save.password = passwordController.text;
           },
           controller: passwordController,
@@ -196,6 +200,9 @@ class _AddSocial extends State<AddSocial> {
       ],
     );
   }
+  // String textToMd5(String text) {
+  //   return md5.convert(utf8.encode(text)).toString();
+  // }
   _button() {
     return Padding(
       padding: EdgeInsets.all(10),
