@@ -1,3 +1,4 @@
+import 'package:cofredesenha/utils/images.dart';
 import 'package:cofredesenha/utils/styles.dart';
 import 'package:cofredesenha/utils/textStyle.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,12 @@ class _EmpryRefundState extends State<EmpryRefund> {
       height: 450,
       child: Column(
         children: [
-          // Center(
-          //     child: Image.asset(
-          //       DefaultAssets.emptyDependents,
-          //       height: 250,
-          //     )),
-          // SizedBox(height: 250,),
+          Center(
+              child: Image.asset(
+                DefaultAssets.emptyDependents,
+                height: 250,
+              )),
+          // SizedBox(height: 80,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

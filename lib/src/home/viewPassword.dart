@@ -12,6 +12,7 @@ import 'package:cofredesenha/src/password/view/passwordBank.dart';
 import 'package:cofredesenha/src/password/view/passwordOthers.dart';
 import 'package:cofredesenha/src/password/view/passwordSocial.dart';
 import 'package:cofredesenha/utils/button.dart';
+import 'package:cofredesenha/utils/images.dart';
 import 'package:cofredesenha/utils/screenUtils.dart';
 import 'package:cofredesenha/utils/styles.dart';
 import 'package:cofredesenha/utils/textStyle.dart';
@@ -129,7 +130,7 @@ class _ViewPassword extends State<ViewPassword> {
             if (snapshot.data!.isEmpty) {
               return SizedBox(
                 height: 300,
-                child: EmpryRefund(),
+                child: emptyRefund(),
               );
             }
 
@@ -205,9 +206,8 @@ class _ViewPassword extends State<ViewPassword> {
             // _items.sort((a,b) => a.createdAt.isAfter(b.createdAt)? -1: 1);
 
             if (snapshot.data!.isEmpty) {
-              return Center(
-                child: emptyRefund(),
-              );
+              return emptyRefund();
+              
             }
 
             searchResultOthers.clear();
@@ -839,11 +839,11 @@ class _ViewPassword extends State<ViewPassword> {
         height: 450,
         child: Column(
           children: [
-            // Center(
-            //     child: Image.asset(
-            //       DefaultAssets.emptyDependents,
-            //       height: 250,
-            //     )),
+            Center(
+                child: Image.asset(
+                  DefaultAssets.emptyDependents,
+                  height: 250,
+                )),
             // SizedBox(height: 250,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -870,11 +870,11 @@ class _ViewPassword extends State<ViewPassword> {
         height: 450,
         child: Column(
           children: [
-            // Center(
-            //     child: Image.asset(
-            //       DefaultAssets.emptyDependents,
-            //       height: 250,
-            //     )),
+            Center(
+                child: Image.asset(
+                  DefaultAssets.emptyDependents,
+                  height: 250,
+                )),
             // SizedBox(height: 250,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

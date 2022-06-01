@@ -7,5 +7,6 @@ abstract class DefaultAssets {
   static const tour3 = 'assets/images/tour3.png';
   static const tour4 = 'assets/images/tour4.png';
   static const tour5 = 'assets/images/tour5.png';
+  static const emptyDependents = 'assets/images/empty.png';
 
 }
