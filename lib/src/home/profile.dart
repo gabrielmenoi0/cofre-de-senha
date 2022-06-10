@@ -140,6 +140,31 @@ class _ProfileViewState extends State<ProfileView> {
           elevation: 10,
           color: Colors.white,
           child: ListTile(
+              leading:Icon(Icons.delete_forever,
+                  color: DefaultColors.secondaryColor),
+              // trailing: Icon(Icons.,
+              //     color: DefaultColors.secondaryColor),
+              // // subtitle: subTitle != null ? Text(subTitle) : null,
+              title: Text(
+                "Apagar conta",
+                style: DefaultStyle.textStyle(
+                    fontWeight: FontWeight.w400,
+                    size: 20,
+                    color: DefaultColors.darkColor2),
+              ),
+              onTap: (){
+                bottomLogout(context);
+              }),
+        ),
+        SizedBox(height: 10,),
+        Card(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: DefaultColors.secondaryColor, width: 2),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          elevation: 10,
+          color: Colors.white,
+          child: ListTile(
               leading:Icon(Icons.logout,
                   color: DefaultColors.secondaryColor),
               // trailing: Icon(Icons.,
@@ -153,7 +178,7 @@ class _ProfileViewState extends State<ProfileView> {
                     color: DefaultColors.darkColor2),
               ),
               onTap: (){
-                bottomLogout(context);
+                bottomLogout2(context);
               }),
         ),
 
@@ -220,7 +245,7 @@ class _ProfileViewState extends State<ProfileView> {
                           height: 20,
                         ),
                         Text(
-                          "Você tem certeza que deseja deslogar da sua conta?",
+                          "Você tem certeza que deseja apagar da sua conta?",
                           style: DefaultStyle.textStyle(
                               size: 20,
                               fontWeight: FontWeight.w400,
@@ -266,6 +291,95 @@ class _ProfileViewState extends State<ProfileView> {
           });
         });
   }
+  bottomLogout2(BuildContext context) {
+    return showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        isDismissible: false,
+        enableDrag: false,
+        context: context,
+        builder: (BuildContext bc) {
+          return StatefulBuilder(builder: (context, setState) {
+            return Wrap(
+              children: [
+                Container(
+                  decoration: decorationBottom(),
+                  child: Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        closeBottom(context),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Atenção!",
+                              style: DefaultStyle.textStyle(
+                                  size: 24,
+                                  fontWeight: FontWeight.w700,
+                                  color: DefaultColors.secondaryColor),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "Você tem certeza que deseja deslogar da sua conta?",
+                          style: DefaultStyle.textStyle(
+                              size: 20,
+                              fontWeight: FontWeight.w400,
+                              color: DefaultColors.darkColor1),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                child: DefaultButton(
+                                  context: context,
+                                  title: "Sim",
+                                ),
+                                onTap: _logout2,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: DefaultButton(
+                                fillColor: DefaultColors.secondaryColor,
+                                context: context,
+                                title: "Não",
+                                callback: () => Navigator.pop(context),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          });
+        });
+  }
+  _logout2(){
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const MessageView()),
+            (Route<dynamic> route) => false);
+  }
+
   _logout() async {
     try{
       // await DeleteController().delete();

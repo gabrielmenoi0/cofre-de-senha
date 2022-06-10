@@ -6,6 +6,7 @@ import 'package:cofredesenha/utils/screenUtils.dart';
 import 'package:cofredesenha/utils/styles.dart';
 import 'package:cofredesenha/utils/textStyle.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../models/cliente.dart';
 
@@ -45,6 +46,8 @@ class _EditProfile extends State<EditProfile> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  var mask = MaskTextInputFormatter(mask: "######");
+
 
   @override
   Widget build(BuildContext context) {
@@ -127,11 +130,11 @@ class _EditProfile extends State<EditProfile> {
           },
           controller: emailController,
           keyboardType: TextInputType.text,
-          // validator: (String? name) {
-          //   if (name!.isEmpty) {
-          //     return "Campo obrigatório";
-          //   }
-          // },
+          validator: (String? name) {
+            if (name!.isEmpty) {
+              return "Campo obrigatório";
+            }
+          },
           style: TextStyle(
             color: Colors.black,
           ),
@@ -155,7 +158,7 @@ class _EditProfile extends State<EditProfile> {
           },
           controller: passwordController,
           keyboardType: TextInputType.text,
-          // inputFormatters: [mask],
+          inputFormatters: [mask],
           validator: (String? name) {
             if (name!.isEmpty) {
               return "Campo obrigatório";
