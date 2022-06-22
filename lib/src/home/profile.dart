@@ -117,7 +117,7 @@ class _ProfileViewState extends State<ProfileView> {
           child: ListTile(
               leading:Icon(Icons.key_outlined,
                   color: DefaultColors.secondaryColor),
-              // trailing: Icon(Icons.,
+              // trailing:  Icon(Icons.,
               //     color: DefaultColors.secondaryColor),
               // // subtitle: subTitle != null ? Text(subTitle) : null,
               title: Text(
