@@ -1,4 +1,4 @@
-import 'package:cofredesenha/src/myApp.dart';
+import 'package:cofredesenha/myApp.dart';
 import 'package:flutter/material.dart';
 
 void main() {

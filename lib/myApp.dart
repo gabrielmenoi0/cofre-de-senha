@@ -1,9 +1,10 @@
 import 'package:cofredesenha/data/database.dart';
 import 'package:cofredesenha/models/cliente.dart';
+import 'package:cofredesenha/splash.dart';
 import 'package:cofredesenha/src/login.dart';
 import 'package:cofredesenha/src/message.view.dart';
 import 'package:cofredesenha/src/home/viewPassword.dart';
-import 'package:cofredesenha/src/splash.dart';
+
 import 'package:cofredesenha/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -43,34 +44,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         // theme: DefaultTheme.themeData,
-        home: FutureBuilder<Cliente?>(
-          future: _getCustomer(),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Splash();
-            }
-            if(snapshot.hasData) {
-              return const MessageView();
-            }
-            else {
-                return const MessageView();
-              }
-          },
-        )
+        home: Splash(),
     );
   }
 
-  Future<Cliente> _getCustomer() async {
-    Cliente result = await _dbHelper.getCustomer();
-    // try{
-    //   await OneSignalController().configureOneSignal();
-    //   await Future.delayed(const Duration(seconds: 2));
-    // }
-    // catch(e){
-    //
-    // }
-    // await Future.delayed(const Duration(seconds: 5));
-
-    return result;
-  }
 }
